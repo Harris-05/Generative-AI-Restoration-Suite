@@ -1,0 +1,9 @@
+{
+  "lr": 0.0003,
+  "batch_size": 32,
+  "bottleneck_spatial": 8,
+  "base_channels": 32,
+  "dropout": 0.2797671222653709,
+  "alpha": 0.8698394131046825,
+  "activation": "leaky_relu"
+}
