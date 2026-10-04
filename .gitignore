@@ -1,5 +1,30 @@
+# Datasets (too large for Git; see README for download instructions)
+oxford-iiit-pet/
+FS2K/
 
-/oxford-iiit-pet/
-GenAI_Assignment#1.pdf
+# Trained weights and generated outputs (use Git LFS or a download link instead)
+*.pt
+*.onnx
+checkpoints/
+onnx/
+evaluation/
+Assignment_Task*/samples/
+logs/
+mlflow/
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node
+node_modules/
+dist/
+.env
+
+# Personal and working files
 Roughreport.txt
-/FS2K/
+GenAI_Assignment#1.pdf
+*.log
+splits/
