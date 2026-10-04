@@ -1,5 +1,6 @@
 
 import argparse
+import csv
 import json
 import sys
 from pathlib import Path
@@ -12,6 +13,7 @@ from torch.utils.data import DataLoader
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "practise"))
 from utils import ReconstructionLoss, get_device, psnr, set_seed  # noqa: E402
+from tracking import Tracker  # noqa: E402
 from data_pipeline import (  # noqa: E402
     IMG_SIZE, PetTrainDataset, PetManifestDataset, list_clean_images,
     train_val_split, generate_validation_manifest,
@@ -21,6 +23,8 @@ GROUP_NORM_GROUPS = 8  # divides every channel count we use (16/32/64 x 2^n) eve
 IMAGES_DIR = str(PROJECT_ROOT / "oxford-iiit-pet" / "images")
 CHECKPOINT_DIR = Path(__file__).resolve().parent / "checkpoints"
 BEST_PARAMS_PATH = Path(__file__).resolve().parent / "best_params.json"
+HERE = Path(__file__).resolve().parent
+LOG_DIR = HERE / "logs"
 
 
 # --------------------------------------------------------------------------
@@ -188,7 +192,10 @@ def run_optuna_study(n_trials: int = 30, max_epochs_per_trial: int = 3):
     train_ids, val_ids = train_val_split(stems, seed=42)
     val_manifest = generate_validation_manifest(val_ids, seed=42)
 
-    study = optuna.create_study(direction="minimize", pruner=optuna.pruners.MedianPruner())
+    study = optuna.create_study(
+        study_name="task1_universal_ae", storage=f"sqlite:///{HERE / 'optuna_study.db'}",
+        load_if_exists=True, direction="minimize", pruner=optuna.pruners.MedianPruner(),
+    )
     objective = build_objective(IMAGES_DIR, train_ids, val_manifest, device, max_epochs_per_trial)
     study.optimize(objective, n_trials=n_trials)
 
@@ -237,16 +244,30 @@ def train_final_model(best_params: dict, epochs: int = 50):
     CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
     ckpt_path = CHECKPOINT_DIR / "task1_final.pt"
 
+    tracker = Tracker("task1_universal_ae", "final_train", {**best_params, "epochs": epochs})
+    log_path = LOG_DIR / "train_log.csv"
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
     best_val = float("inf")
-    for epoch in range(epochs):
-        train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
-        val_loss, val_psnr = evaluate(model, val_loader, loss_fn, device)
-        print(f"epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
-              f"val_loss={val_loss:.4f}  val_psnr={val_psnr:.2f}dB")
-        if val_loss < best_val:
-            best_val = val_loss
-            torch.save(model.state_dict(), ckpt_path)
-            print(f"  -> saved new best checkpoint to {ckpt_path}")
+    with open(log_path, "w", newline="") as log_file:
+        writer = csv.writer(log_file)
+        writer.writerow(["epoch", "train_loss", "val_loss", "val_psnr"])
+        for epoch in range(epochs):
+            train_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
+            val_loss, val_psnr = evaluate(model, val_loader, loss_fn, device)
+            writer.writerow([epoch + 1, train_loss, val_loss, val_psnr])
+            log_file.flush()
+            tracker.log_metrics({"train_loss": train_loss, "val_loss": val_loss,
+                                 "val_psnr": val_psnr}, step=epoch + 1)
+            print(f"epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
+                  f"val_loss={val_loss:.4f}  val_psnr={val_psnr:.2f}dB")
+            if val_loss < best_val:
+                best_val = val_loss
+                torch.save(model.state_dict(), ckpt_path)
+                print(f"  -> saved new best checkpoint to {ckpt_path}")
+    print(f"Training log written to {log_path}")
+    tracker.log_artifact(ckpt_path)
+    tracker.log_artifact(log_path)
+    tracker.close()
 
     return model
 
@@ -313,4 +334,4 @@ if __name__ == "__main__":
             )
         with open(BEST_PARAMS_PATH) as f:
             best_params = json.load(f)
-        train_final_model(best_params, epochs=args.epochs)
+        train_final_model(best_params, epochs=args.epochs)                  

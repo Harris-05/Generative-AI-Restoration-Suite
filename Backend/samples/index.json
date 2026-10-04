@@ -1,0 +1,42 @@
+[
+  {
+    "id": "Abyssinian_201",
+    "label": "Abyssinian",
+    "file": "Abyssinian_201.png"
+  },
+  {
+    "id": "beagle_64",
+    "label": "beagle",
+    "file": "beagle_64.png"
+  },
+  {
+    "id": "British_Shorthair_2",
+    "label": "British Shorthair",
+    "file": "British_Shorthair_2.png"
+  },
+  {
+    "id": "english_setter_93",
+    "label": "english setter",
+    "file": "english_setter_93.png"
+  },
+  {
+    "id": "keeshond_55",
+    "label": "keeshond",
+    "file": "keeshond_55.png"
+  },
+  {
+    "id": "Persian_257",
+    "label": "Persian",
+    "file": "Persian_257.png"
+  },
+  {
+    "id": "Russian_Blue_69",
+    "label": "Russian Blue",
+    "file": "Russian_Blue_69.png"
+  },
+  {
+    "id": "Siamese_25",
+    "label": "Siamese",
+    "file": "Siamese_25.png"
+  }
+]

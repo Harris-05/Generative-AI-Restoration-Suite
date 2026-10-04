@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;background-color:#090b10;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "status-warning": "#f59e0b",
+          "secondary-container": "#6f00be",
+          "surface-border": "rgba(255, 255, 255, 0.08)",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "status-critical": "#f43f5e",
+          "on-secondary-fixed": "#2c0051",
+          "surface-container": "#1e1f25",
+          "cyber-cyan": "#06b6d4",
+          "surface-dim": "#111318",
+          "on-secondary-container": "#d6a9ff",
+          "surface-overlay": "#161e2e",
+          "surface-container-high": "#282a2f",
+          "on-error-container": "#ffdad6",
+          "indigo-glow": "rgba(99, 102, 241, 0.25)",
+          "on-primary": "#1000a9",
+          "surface-border-active": "rgba(99, 102, 241, 0.4)",
+          "surface-variant": "#33353a",
+          "text-secondary": "#94a3b8",
+          "surface-base": "#090b10",
+          "inverse-surface": "#e2e2e9",
+          "primary-fixed-dim": "#c0c1ff",
+          "secondary-fixed-dim": "#ddb7ff",
+          "surface-bright": "#37393f",
+          "on-primary-fixed": "#07006c",
+          "on-tertiary-container": "#000703",
+          "secondary": "#ddb7ff",
+          "violet-glow": "rgba(168, 85, 247, 0.25)",
+          "surface-tint": "#c0c1ff",
+          "inverse-primary": "#494bd6",
+          "on-background": "#e2e2e9",
+          "inverse-on-surface": "#2e3036",
+          "on-surface": "#e2e2e9",
+          "tertiary-fixed-dim": "#4edea3",
+          "tertiary-fixed": "#6ffbbe",
+          "secondary-fixed": "#f0dbff",
+          "surface-raised": "#0f141f",
+          "outline-variant": "#464554",
+          "on-primary-container": "#0d0096",
+          "error": "#ffb4ab",
+          "tertiary-container": "#00885d",
+          "background": "#090b10",
+          "primary-fixed": "#e1e0ff",
+          "surface-container-low": "#111318",
+          "surface-container-lowest": "#090b10",
+          "on-tertiary-fixed": "#002113",
+          "outline": "#908fa0",
+          "text-primary": "#f8fafc",
+          "on-secondary": "#490080",
+          "surface-container-highest": "#33353a",
+          "primary-container": "#8083ff",
+          "on-error": "#690005",
+          "text-muted": "#64748b",
+          "tertiary": "#4edea3",
+          "on-secondary-fixed-variant": "#6900b3",
+          "on-tertiary": "#003824",
+          "primary": "#c0c1ff",
+          "on-tertiary-fixed-variant": "#005236",
+          "status-connected": "#10b981",
+          "error-container": "#93000a",
+          "on-surface-variant": "#c7c4d7",
+          "surface": "#111318"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-md": "0.75rem",
+          "space-xl": "1.5rem",
+          "margin-desktop": "2rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1rem",
+          "gutter": "1rem",
+          "space-xs": "0.25rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-md": ["Geist"],
+          "headline-md": ["Geist"],
+          "code-sm": ["JetBrains Mono"],
+          "body-md": ["Geist"],
+          "headline-xl": ["Geist"],
+          "label-sm": ["JetBrains Mono"],
+          "body-lg": ["Geist"],
+          "headline-xl-mobile": ["Geist"],
+          "code-lg": ["JetBrains Mono"],
+          "headline-lg": ["Geist"],
+          "body-sm": ["Geist"]
+        },
+        "fontSize": {
+          "label-md": ["0.8125rem", {"lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "500"}],
+          "headline-md": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "code-sm": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "500"}],
+          "body-md": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+          "headline-xl": ["2rem", {"lineHeight": "2.5rem", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+          "label-sm": ["0.6875rem", {"lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-lg": ["1rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-xl-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "code-lg": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "headline-lg": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "body-sm": ["0.75rem", {"lineHeight": "1rem", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-[#6366f1]/30 selection:text-[#c0c1ff]"><header class="fixed top-0 w-full z-50 bg-[#090b10]/90 backdrop-blur-xl border-b border-surface-border shadow-[0_1px_16px_rgba(0,0,0,0.6)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md shrink-0"><img alt="Generative AI Restoration Studio Logo" class="h-9 w-9 object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VJkSROlruskEC8lLGblX33fdMfkFy-Uvj7LMdkkOZUlFfV_Q24wZnWFc3lzNoy7Ow1OAxbKl1V_zNWTtpZrjOk359JkMAneYnKtf9cx7vD7hqRyif0wqvbDkGCA1Q8UGaHcGoX50VaFruT42Jf3vmj14zpLQYWJOZeugROg4Imi3nBn9tHih_SIM0syxpRWPkXViBWJojvwEBqdbB3JRohehPPN-mF-uivm0rEHcT67aMZ5h9sgWkyeLo"/><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-text-primary">Generative AI Restoration Studio</span><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-[#818cf8] font-label-sm text-label-sm uppercase tracking-wider border border-surface-border">v2.4-cvlab</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 rounded-xl bg-[#111318] border border-surface-border"><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors whitespace-nowrap" data-path="universal-restoration" href="#">Universal Restoration</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors whitespace-nowrap" data-path="hard-routed-restoration" href="#">Hard-Routed Restoration</a><a aria-current="page" class="px-space-md py-space-xs rounded-lg font-label-md text-label-md whitespace-nowrap text-[#f8fafc] font-semibold transition-all shadow-[0_0_16px_rgba(99,102,241,0.35)]" data-path="soft-mixture-of-experts" href="#" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.25)); border: 1px solid rgba(129, 140, 248, 0.5);">Soft Mixture-of-Experts</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-text-secondary hover:text-text-primary transition-colors whitespace-nowrap" data-path="face-to-sketch" href="#">Face-to-Sketch</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-2 px-space-md py-1 rounded-full bg-[#111318] border border-surface-border"><span class="h-2 w-2 rounded-full bg-status-connected shadow-[0_0_8px_#10b981] animate-pulse"></span><span class="font-code-sm text-code-sm text-text-primary">Backend: connected</span></div><div class="hidden xl:flex items-center gap-1.5 px-space-md py-1 rounded-full bg-[#111318] text-text-secondary font-code-sm text-code-sm border border-surface-border"><span class="material-symbols-outlined text-[15px] text-[#818cf8]">developer_board</span><span>RTX 4090 • CUDA 12.2</span></div><button class="p-space-xs text-text-secondary hover:text-text-primary hover:bg-[#1e1f25] rounded-lg transition-colors flex items-center justify-center" title="Toggle Theme Mode" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button><a class="p-space-xs text-text-secondary hover:text-text-primary hover:bg-[#1e1f25] rounded-lg transition-colors flex items-center justify-center" data-path="documentation" href="#" title="Research Documentation &amp; API"><span class="material-symbols-outlined text-[20px]">menu_book</span></a><div class="w-8 h-8 rounded-full bg-[#6366f1]/20 border border-[#818cf8]/40 flex items-center justify-center"><span class="material-symbols-outlined text-[#c0c1ff] text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-[#090b10]"><div class="flex flex-col w-full">
+<div class="w-full px-gutter-desktop py-space-xl flex flex-col gap-space-xl">
+<!-- Top Configuration & Workbench Control Banner -->
+<div class="w-full rounded-xl p-space-xl flex flex-col lg:flex-row gap-space-xl items-stretch justify-between shadow-lg" style="background-color: #0f141f; border: 1px solid rgba(255, 255, 255, 0.08);">
+<!-- Left: Dropzone & Upload Target -->
+<div class="flex-1 flex flex-col md:flex-row gap-space-lg items-center">
+<!-- Interactive Drop Zone -->
+<div class="w-full md:w-80 h-44 rounded-xl p-space-md flex flex-col items-center justify-center text-center cursor-pointer group hover:bg-[#161e2e] transition-all" id="drop-zone" style="background-color: #090b10; border: 1px dashed rgba(129, 140, 248, 0.4);">
+<div class="w-10 h-10 rounded-full bg-[#161e2e] flex items-center justify-center text-[#818cf8] mb-space-sm group-hover:scale-110 group-hover:text-[#c0c1ff] transition-all shadow-[0_0_12px_rgba(99,102,241,0.25)]">
+<span class="material-symbols-outlined text-[24px]">cloud_upload</span>
+</div>
+<span class="font-headline-md text-body-md text-text-primary mb-1">Drop an image here or click to browse</span>
+<span class="font-label-sm text-label-sm text-text-muted">JPG, PNG max 10MB • 16-bit Tensor supported</span>
+</div>
+<!-- Loaded Tensor Specimen Preview -->
+<div class="flex items-center gap-space-md p-space-md rounded-xl w-full md:w-auto" style="background-color: #161e2e; border: 1px solid rgba(255, 255, 255, 0.08);">
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 bg-[#090b10] border border-surface-border">
+<img class="w-full h-full object-cover" data-alt="A heavily degraded 19th century vintage portrait photograph of a stern scholar with severe salt-and-pepper noise, scratched emulsion, visible chemical paper grain, and localized blur, authentic archival texture under cold studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1mT4USZYDxdNS5yA4aItz60iaaKoF_DB01DiOldh6aCfr7FbiCDLy_Lcg5tPFgirs-JlPeR1d2HBQBURNnbrb2b4fgh3qHkS7lo9kqtDOhWpjjXUDqLcJPTA4biX0EPTsm03h5vmrxpoNPz10OfBw1ftZI9vjhIWxyqSYuXBFpdav9UrcRuKF6xVO5NcQ3Kyx853hVrl8Wpc82wN_YzxRDniWiEh78jjMwEVJs7M-QGfzcWnvXmbt"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-[#090b10]/90 backdrop-blur-sm font-code-sm text-code-sm text-[#818cf8] border border-surface-border">RAW</span>
+</div>
+<div class="flex flex-col justify-between py-1">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-body-md text-text-primary">specimen_archival_1894.png</span>
+<span class="px-1.5 py-0.5 rounded-full bg-[#6366f1]/20 text-[#c0c1ff] font-code-sm text-code-sm border border-[#6366f1]/30">Loaded</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-secondary mt-0.5">512×512 • RGB float32 • Complex Mixed Degradation</span>
+</div>
+<div class="flex items-center gap-space-sm mt-3">
+<span class="font-code-sm text-code-sm text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tune</span> Prior: Auto-gating
+              </span>
+<span class="text-surface-border">•</span>
+<span class="font-code-sm text-code-sm text-[#4edea3]">4 Experts Mapped</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Primary Execution Panel -->
+<div class="shrink-0 flex flex-col justify-center items-end gap-space-sm">
+<button class="w-full lg:w-auto px-space-xl py-space-md rounded-xl font-headline-md text-label-md flex items-center justify-center gap-space-sm hover:brightness-110 active:scale-95 transition-all shadow-lg text-white" id="run-moe-btn" style="background: linear-gradient(135deg, #6366f1 0%, #818cf8 50%, #a855f7 100%); box-shadow: 0 0 24px rgba(99, 102, 241, 0.45); border: 1px solid rgba(168, 85, 247, 0.5);" type="button">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span>Run MoE Ensemble</span>
+</button>
+<div class="flex items-center gap-space-sm text-text-muted font-code-sm text-code-sm">
+<span class="flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"></span> Ready for inference</span>
+<span>•</span>
+<span>Softmax T=0.85</span>
+</div>
+</div>
+</div>
+<!-- Active Results Workbench -->
+<div class="flex flex-col gap-space-xl">
+<!-- Section Tag -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-[#818cf8] uppercase tracking-widest">[STAGE 03]</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Dynamic Mixture-of-Experts Weight Gating</h2>
+</div>
+<div class="flex items-center gap-space-sm bg-[#111318] border border-surface-border px-space-md py-1 rounded-full font-code-sm text-code-sm text-text-secondary">
+<span class="material-symbols-outlined text-[16px] text-[#818cf8]">hub</span>
+<span>Sparse-Gated Dense MoE Transformer</span>
+</div>
+</div>
+<!-- Top Row: Dual Diagnostic Instrumentation -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- (1) Routing Weights (Gating Network) Card - 7 Columns -->
+<div class="lg:col-span-7 rounded-xl p-space-xl flex flex-col justify-between shadow-md" style="background-color: #0f141f; border: 1px solid rgba(255, 255, 255, 0.08);">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-[#818cf8]">alt_route</span>
+<h3 class="font-headline-md text-headline-md text-text-primary">Routing Weights (Gating Network)</h3>
+</div>
+<span class="px-space-sm py-0.5 rounded bg-[#161e2e] font-code-sm text-code-sm text-[#c0c1ff] border border-surface-border">Top-k Sparse Dispatch</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mb-space-lg">Softmax attention over sparse FFN experts with dynamically weighted token fusion.</p>
+<!-- Diagnostic Weight Bars -->
+<div class="flex flex-col gap-space-md">
+<!-- Expert 1: Clean (Identity) 14% -->
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-[#090b10] border border-surface-border">
+<div class="flex justify-between items-center text-text-primary font-label-md text-label-md">
+<span class="flex items-center gap-space-xs text-text-secondary">
+<span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                    Clean (Identity)
+                  </span>
+<span class="font-code-sm text-code-sm text-slate-400">0.14 <span class="text-text-muted font-normal">(14.0%)</span></span>
+</div>
+<div class="w-full h-2 rounded-full bg-[#1e1f25] overflow-hidden">
+<div class="h-full bg-slate-400 rounded-full" style="width: 14%;"></div>
+</div>
+</div>
+<!-- Expert 2: Salt-and-pepper (Dominant Expert) 52% -->
+<div class="flex flex-col gap-1 p-space-sm rounded-lg" style="background-color: #161e2e; border: 1px solid rgba(99, 102, 241, 0.45); box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);">
+<div class="flex justify-between items-center text-text-primary font-label-md text-label-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-[#818cf8] shadow-[0_0_8px_#818cf8] animate-pulse"></span>
+<span class="text-[#c0c1ff] font-headline-md">Salt-and-pepper expert</span>
+<span class="px-2 py-0.5 rounded-full text-white font-label-sm text-label-sm uppercase tracking-wider border border-[#a855f7]/40 shadow-sm" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.8));">Dominant Expert</span>
+</div>
+<span class="font-code-lg text-code-lg text-[#c0c1ff] font-bold">0.52 <span class="text-text-secondary font-normal">(52.0%)</span></span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-[#090b10] overflow-hidden">
+<div class="h-full rounded-full transition-all duration-700" style="width: 52%; background: linear-gradient(90deg, #6366f1, #a855f7); box-shadow: 0 0 12px rgba(99, 102, 241, 0.7);"></div>
+</div>
+</div>
+<!-- Expert 3: Blur Expert 22% -->
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-[#090b10] border border-surface-border">
+<div class="flex justify-between items-center text-text-primary font-label-md text-label-md">
+<span class="flex items-center gap-space-xs text-text-secondary">
+<span class="w-2.5 h-2.5 rounded-full bg-[#a855f7] shadow-[0_0_6px_#a855f7]"></span>
+                    Blur expert
+                  </span>
+<span class="font-code-sm text-code-sm text-[#ddb7ff]">0.22 <span class="text-text-muted font-normal">(22.0%)</span></span>
+</div>
+<div class="w-full h-2 rounded-full bg-[#1e1f25] overflow-hidden">
+<div class="h-full rounded-full" style="width: 22%; background: #a855f7; box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);"></div>
+</div>
+</div>
+<!-- Expert 4: Occlusion Expert 12% -->
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-[#090b10] border border-surface-border">
+<div class="flex justify-between items-center text-text-primary font-label-md text-label-md">
+<span class="flex items-center gap-space-xs text-text-secondary">
+<span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] shadow-[0_0_6px_#06b6d4]"></span>
+                    Occlusion expert
+                  </span>
+<span class="font-code-sm text-code-sm text-[#06b6d4]">0.12 <span class="text-text-muted font-normal">(12.0%)</span></span>
+</div>
+<div class="w-full h-2 rounded-full bg-[#1e1f25] overflow-hidden">
+<div class="h-full rounded-full" style="width: 12%; background: #06b6d4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between font-code-sm text-code-sm text-text-muted border-t border-surface-border">
+<span>∑ W_i = 1.000</span>
+<span>Entropy: 1.182 nats</span>
+<span>Gating Loss (Auxiliary): 0.0038</span>
+</div>
+</div>
+<!-- (2) Visual MoE Weight Distribution Donut Card - 5 Columns -->
+<div class="lg:col-span-5 rounded-xl p-space-xl flex flex-col justify-between shadow-md" style="background-color: #0f141f; border: 1px solid rgba(255, 255, 255, 0.08);">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-[#a855f7]">pie_chart</span>
+<h3 class="font-headline-md text-headline-md text-text-primary">Weight Distribution</h3>
+</div>
+<span class="font-code-sm text-code-sm text-[#818cf8] bg-[#161e2e] px-2 py-0.5 rounded border border-surface-border">Soft Ensemble</span>
+</div>
+<!-- Vector Donut Visualizer (Circumference = 2 * PI * 38 = 238.76) -->
+<!-- 52% = 124.16, 22% = 52.53, 14% = 33.43, 12% = 28.65 -->
+<div class="relative w-full h-52 flex items-center justify-center my-space-sm">
+<svg class="w-48 h-48 -rotate-90" viewbox="0 0 100 100">
+<circle class="text-[#1e1f25]" cx="50" cy="50" fill="none" opacity="0.4" r="38" stroke="currentColor" stroke-width="12"></circle>
+<!-- Salt-and-pepper 52% (#6366f1) -->
+<circle class="transition-all duration-700" cx="50" cy="50" fill="none" r="38" stroke="#6366f1" stroke-dasharray="124.16 238.76" stroke-dashoffset="0" stroke-width="12" style="filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.6));"></circle>
+<!-- Blur 22% (#a855f7) offset: -124.16 -->
+<circle class="transition-all duration-700" cx="50" cy="50" fill="none" r="38" stroke="#a855f7" stroke-dasharray="52.53 238.76" stroke-dashoffset="-124.16" stroke-width="12" style="filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.5));"></circle>
+<!-- Clean Identity 14% (#64748b) offset: -(124.16 + 52.53) = -176.69 -->
+<circle class="transition-all duration-700" cx="50" cy="50" fill="none" r="38" stroke="#64748b" stroke-dasharray="33.43 238.76" stroke-dashoffset="-176.69" stroke-width="12"></circle>
+<!-- Occlusion 12% (#06b6d4) offset: -(176.69 + 33.43) = -210.12 -->
+<circle class="transition-all duration-700" cx="50" cy="50" fill="none" r="38" stroke="#06b6d4" stroke-dasharray="28.65 238.76" stroke-dashoffset="-210.12" stroke-width="12" style="filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));"></circle>
+</svg>
+<!-- Donut Center Telemetry -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="font-headline-lg text-headline-md text-text-primary font-semibold">4 Experts</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-[#818cf8]">Soft Split</span>
+</div>
+</div>
+</div>
+<!-- Color Key / Legend Matrix -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-sm bg-[#090b10] p-space-md rounded-xl border border-surface-border">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-text-primary"><span class="h-2 w-2 rounded-full shrink-0" style="background-color: #6366f1; box-shadow: 0 0 6px #6366f1;"></span><span class="truncate">Salt-and-pepper (52%)</span></div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-text-primary"><span class="h-2 w-2 rounded-full shrink-0" style="background-color: #a855f7; box-shadow: 0 0 6px #a855f7;"></span><span class="truncate">Blur expert (22%)</span></div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-text-primary"><span class="h-2 w-2 rounded-full shrink-0" style="background-color: #64748b;"></span><span class="truncate">Clean identity (14%)</span></div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-text-primary"><span class="h-2 w-2 rounded-full shrink-0" style="background-color: #06b6d4; box-shadow: 0 0 6px #06b6d4;"></span><span class="truncate">Occlusion (12%)</span></div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: High Fidelity Side-by-Side Visual Comparison (3) -->
+<div class="rounded-xl p-space-xl flex flex-col gap-space-lg shadow-md" style="background-color: #0f141f; border: 1px solid rgba(255, 255, 255, 0.08);">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[22px] text-[#818cf8]">compare</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary">Tensor Comparison Matrix</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">Synchronized perceptual inspection between corrupted input &amp; dynamic mixture reconstruction.</p>
+</div>
+</div>
+<!-- Dual Telemetry Diagnostics Pill Cluster -->
+<div class="flex flex-wrap items-center gap-space-sm font-code-sm text-code-sm">
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-[#161e2e] text-[#4edea3] border border-surface-border">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>Inference time: 46 ms</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-[#161e2e] text-[#818cf8] border border-surface-border">
+<span class="material-symbols-outlined text-[15px]">speed</span>
+<span>Gating Latency: 3.8 ms</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-[#161e2e] text-[#ddb7ff] border border-surface-border">
+<span class="material-symbols-outlined text-[15px]">query_stats</span>
+<span>PSNR: +14.2 dB (33.6 dB)</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-[#161e2e] text-[#06b6d4] border border-surface-border">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span>SSIM: 0.948 (+0.41)</span>
+</div>
+</div>
+</div>
+<!-- The Comparative Panels -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Panel A: Input (Degraded Tensor) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-md text-label-md text-status-critical flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">grain</span>
+                Input (Degraded Tensor)
+              </span>
+<span class="font-code-sm text-code-sm text-text-muted">σ_noise=0.35 • Scratch=True</span>
+</div>
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#090b10] border border-surface-border group">
+<img class="w-full h-full object-cover" data-alt="High contrast macro close-up of a damaged vintage monochromatic portrait photograph showing dense salt and pepper speckle noise, deep hairline cracks across the face, surface abrasions, and optical defocus, dark museum archival scan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbYw_Mdq1kXdoFS_Eu9lSP6skB_5vDQU8GnHtGCbzsU-CNt-4qnJmQN8JeUm7vtRKqNzUi6k_NqsClu2LaOnnUY0Hu5hNR4wpX9RwMfLjd6S6b9l_11Rs8jdNZyDCqaTn1FzRrVQ0QjJ560-l1LNRlN25x2Ewnw1dRPBhW8M8H3ekB7BL3DyshBK42V1LQE0XTL7LKiSVAD88OlRkI6d_f0cotgUFDyHjRSvuTxyOnfT9qorCf3xjI"/>
+<!-- Floating HUD Loupe Label -->
+<div class="absolute top-space-md left-space-md px-space-sm py-1 rounded bg-[#090b10]/85 backdrop-blur-md font-code-sm text-code-sm text-text-primary flex items-center gap-1 border border-surface-border">
+<span class="h-1.5 w-1.5 rounded-full bg-status-critical shadow-[0_0_6px_#f43f5e]"></span> Unprocessed
+              </div>
+<div class="absolute bottom-space-md right-space-md px-space-sm py-1 rounded bg-[#090b10]/85 backdrop-blur-md font-code-sm text-code-sm text-text-secondary border border-surface-border">
+                100% Zoom Loupe Active
+              </div>
+</div>
+</div>
+<!-- Panel B: Restored Output (MoE Weighted) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-md text-label-md text-[#c0c1ff] flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+                Restored Output (MoE Weighted)
+              </span>
+<span class="font-code-sm text-code-sm text-[#4edea3]">SSIM: 0.948 • ΔE: 0.98</span>
+</div>
+<div class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#090b10] group" style="box-shadow: 0 0 32px rgba(99, 102, 241, 0.25); border: 1px solid rgba(99, 102, 241, 0.45);">
+<img class="w-full h-full object-cover" data-alt="Exquisitely sharp and clean restored monochromatic archival portrait of the same vintage scholar, smooth skin textures, pristine clear eyes, removed scratch fissures and eradicated salt-and-pepper noise, crystal-clear fine edge detail with authentic silver-halide tonal richness" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9QsN4eeFKz8G8Af19yfsBFAotC-9NTsB4bZoBtsZXx6ZN10k2LOn9gP73cmL9z_S2rDSqKEJS3CP2I_RXzBWS8gyQelSSMxM8ubfe8U_aL0Ub7pstXyb8kq5Tunp7-lFEytAEtD-4_w15dV3y-1JJcv1wp1-_dQ6WS8XxnTEhd9CvRUofzISQTMC-VzCLwpSDKlk5jbUfLVWi3kVdSzp6_FKkJFNBxV1s6-F6CVMWwxlyFWHxi-P9"/>
+<!-- Floating Restored HUD Label -->
+<div class="absolute top-space-md left-space-md px-space-sm py-1 rounded bg-[#090b10]/85 backdrop-blur-md font-code-sm text-code-sm text-[#c0c1ff] flex items-center gap-1 border border-[#6366f1]/40">
+<span class="h-1.5 w-1.5 rounded-full bg-[#818cf8] animate-pulse shadow-[0_0_6px_#818cf8]"></span> Soft MoE Reconstructed
+              </div>
+<div class="absolute bottom-space-md right-space-md px-space-sm py-1 rounded text-white font-code-sm text-code-sm" style="background: linear-gradient(135deg, #6366f1, #a855f7); box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);">
+                FP16 Fused Tensors
+              </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Showcase Card Preview / Fallback Drawer (4) -->
+<div class="w-full rounded-xl p-space-xl flex flex-col md:flex-row items-center justify-between gap-space-lg" style="background-color: #0c0e13; border: 1px solid rgba(255, 255, 255, 0.08);">
+<div class="flex items-center gap-space-lg">
+<div class="w-16 h-16 rounded-2xl bg-[#161e2e] flex items-center justify-center shrink-0 text-[#818cf8] border border-[#6366f1]/30 shadow-[0_0_16px_rgba(99,102,241,0.2)]">
+<span class="material-symbols-outlined text-[36px]">image_search</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-md text-headline-md text-text-primary">Upload an image to get started</h4>
+<p class="font-body-md text-body-md text-text-secondary max-w-xl">
+              Feed raw degraded frames into the gating transformer to benchmark expert allocation rates against standard non-mixture baselines.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-md py-space-sm rounded-lg bg-[#161e2e] text-text-primary font-label-md text-label-md hover:bg-[#1e1f25] border border-surface-border transition-colors" type="button">
+            Load Sample Dataset
+          </button>
+<button class="px-space-md py-space-sm rounded-lg text-[#c0c1ff] font-label-md text-label-md hover:brightness-110 transition-colors" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.45); box-shadow: 0 0 14px rgba(99, 102, 241, 0.15);" type="button">
+            View Calibration Docs
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const btn = document.getElementById('run-moe-btn');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span><span>Computing Weights...</span>';
+        btn.classList.add('opacity-80', 'pointer-events-none');
+        setTimeout(() => {
+          btn.innerHTML = originalContent;
+          btn.classList.remove('opacity-80', 'pointer-events-none');
+        }, 650);
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-[#090b10] border-t border-surface-border py-space-md"><div class="w-full px-gutter-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-text-muted"><div class="flex items-center gap-space-md"><span class="flex items-center gap-1 text-text-secondary"><span class="material-symbols-outlined text-[14px] text-[#4edea3]">memory</span> Inference Cluster: US-WEST-2</span><span>|</span><span class="font-code-sm text-code-sm">Latency: 18ms</span><span>|</span><span class="font-code-sm text-code-sm text-[#818cf8]">FP16 TensorRT Active</span></div><div class="flex items-center gap-space-md"><span>Computational Imaging Lab © 2025</span><a class="hover:text-text-primary transition-colors" data-path="documentation" href="#">API Specs</a><a class="hover:text-text-primary transition-colors" href="#">Benchmarks</a></div></div></footer></body></html>

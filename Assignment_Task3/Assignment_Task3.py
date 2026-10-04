@@ -24,6 +24,7 @@ Training procedure (assignment-mandated, not optional):
 """
 
 import argparse
+import csv
 import json
 import sys
 from pathlib import Path
@@ -40,6 +41,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "Assignment_Task1"))
 sys.path.insert(0, str(PROJECT_ROOT / "Assignment_Task2"))
 
 from utils import SSIMLoss, get_device, set_seed  # noqa: E402
+from tracking import Tracker  # noqa: E402
 from data_pipeline import (  # noqa: E402
     CORRUPTION_TYPES, PetTrainDataset, PetManifestDataset, list_clean_images,
     train_val_split, generate_validation_manifest,
@@ -50,6 +52,7 @@ from Assignment_Task2 import CorruptionClassifier  # noqa: E402
 HERE = Path(__file__).resolve().parent
 CHECKPOINT_DIR = HERE / "checkpoints"
 BEST_PARAMS_PATH = HERE / "best_params.json"
+LOG_DIR = HERE / "logs"
 
 TASK2_DIR = PROJECT_ROOT / "Assignment_Task2"
 CLASSIFIER_PARAMS_PATH = TASK2_DIR / "classifier_best_params.json"
@@ -346,7 +349,10 @@ def run_moe_optuna_study(n_trials: int = 20, max_epochs_per_trial: int = 3):
     train_ids, val_ids = train_val_split(stems, seed=42)
     val_manifest = generate_validation_manifest(val_ids, seed=42)
 
-    study = optuna.create_study(direction="minimize", pruner=optuna.pruners.MedianPruner())
+    study = optuna.create_study(
+        study_name="task3_moe", storage=f"sqlite:///{HERE / 'optuna_study.db'}",
+        load_if_exists=True, direction="minimize", pruner=optuna.pruners.MedianPruner(),
+    )
     objective = moe_objective(train_ids, val_manifest, device, max_epochs_per_trial)
     study.optimize(objective, n_trials=n_trials)
 
@@ -388,15 +394,28 @@ def train_final_moe(best_params: dict, warmup_epochs: int = 5, joint_epochs: int
     CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
     ckpt_path = CHECKPOINT_DIR / "moe_final.pt"
 
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    tracker = Tracker("task3_moe", "joint_finetune", {**best_params, "warmup_epochs": warmup_epochs,
+                                                       "joint_epochs": joint_epochs})
+    log_path = LOG_DIR / "moe_train_log.csv"
     best_val = float("inf")
-    for epoch in range(joint_epochs):
-        joint_finetune(model, train_loader, joint_opt, loss_fn, device, temperature, epochs=1)
-        val_loss = evaluate_moe(model, val_loader, loss_fn, device, temperature)
-        print(f"epoch {epoch+1}/{joint_epochs}  val_loss={val_loss:.4f}")
-        if val_loss < best_val:
-            best_val = val_loss
-            torch.save(model.state_dict(), ckpt_path)
-            print(f"  -> saved new best checkpoint to {ckpt_path}")
+    with open(log_path, "w", newline="") as log_file:
+        writer = csv.writer(log_file)
+        writer.writerow(["epoch", "val_loss"])
+        for epoch in range(joint_epochs):
+            joint_finetune(model, train_loader, joint_opt, loss_fn, device, temperature, epochs=1)
+            val_loss = evaluate_moe(model, val_loader, loss_fn, device, temperature)
+            writer.writerow([epoch + 1, val_loss])
+            log_file.flush()
+            tracker.log_metrics({"val_loss": val_loss}, step=epoch + 1)
+            print(f"epoch {epoch+1}/{joint_epochs}  val_loss={val_loss:.4f}")
+            if val_loss < best_val:
+                best_val = val_loss
+                torch.save(model.state_dict(), ckpt_path)
+                print(f"  -> saved new best checkpoint to {ckpt_path}")
+    print(f"Training log written to {log_path}")
+    tracker.log_artifact(ckpt_path)
+    tracker.close()
 
     routing = routing_weights_by_corruption(model, val_loader, device, temperature)
     health = check_expert_health(routing)
@@ -499,6 +518,13 @@ if __name__ == "__main__":
         val_ds = PetManifestDataset(IMAGES_DIR, val_manifest)
         val_loader = DataLoader(val_ds, batch_size=32, shuffle=False)
 
-        routing = routing_weights_by_corruption(model, val_loader, device)
+        # Use the SAME temperature the model was trained with, not the default 1.0.
+        if not BEST_PARAMS_PATH.exists():
+            raise SystemExit(f"Run `optuna` first (missing {BEST_PARAMS_PATH}).")
+        with open(BEST_PARAMS_PATH) as f:
+            temperature = json.load(f)["temperature"]
+
+        routing = routing_weights_by_corruption(model, val_loader, device, temperature)
         health = check_expert_health(routing)
+        print(f"Routing evaluated at temperature={temperature:.3f}")
         print(json.dumps(health, indent=2))

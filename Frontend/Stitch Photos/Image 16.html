@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "status-warning": "#f59e0b",
+        "secondary-container": "#6f00be",
+        "surface-border": "rgba(255, 255, 255, 0.08)",
+        "on-primary-fixed-variant": "#2f2ebe",
+        "status-critical": "#f43f5e",
+        "on-secondary-fixed": "#2c0051",
+        "surface-container": "#1e1f25",
+        "cyber-cyan": "#06b6d4",
+        "surface-dim": "#111318",
+        "on-secondary-container": "#d6a9ff",
+        "surface-overlay": "#161e2e",
+        "surface-container-high": "#282a2f",
+        "on-error-container": "#ffdad6",
+        "indigo-glow": "rgba(99, 102, 241, 0.25)",
+        "on-primary": "#0c0e13",
+        "surface-border-active": "rgba(99, 102, 241, 0.4)",
+        "surface-variant": "#33353a",
+        "text-secondary": "#94a3b8",
+        "surface-base": "#090b10",
+        "inverse-surface": "#e2e2e9",
+        "primary-fixed-dim": "#c0c1ff",
+        "secondary-fixed-dim": "#ddb7ff",
+        "surface-bright": "#37393f",
+        "on-primary-fixed": "#07006c",
+        "on-tertiary-container": "#000703",
+        "secondary": "#ddb7ff",
+        "violet-glow": "rgba(168, 85, 247, 0.25)",
+        "surface-tint": "#c0c1ff",
+        "inverse-primary": "#494bd6",
+        "on-background": "#e2e2e9",
+        "inverse-on-surface": "#2e3036",
+        "on-surface": "#e2e2e9",
+        "tertiary-fixed-dim": "#4edea3",
+        "tertiary-fixed": "#6ffbbe",
+        "secondary-fixed": "#f0dbff",
+        "surface-raised": "#0f141f",
+        "outline-variant": "#464554",
+        "on-primary-container": "#e1e0ff",
+        "error": "#ffb4ab",
+        "tertiary-container": "#00885d",
+        "background": "#090b10",
+        "primary-fixed": "#e1e0ff",
+        "surface-container-low": "#111318",
+        "surface-container-lowest": "#0c0e13",
+        "on-tertiary-fixed": "#002113",
+        "outline": "#908fa0",
+        "text-primary": "#f8fafc",
+        "on-secondary": "#490080",
+        "surface-container-highest": "#33353a",
+        "primary-container": "#6366f1",
+        "on-error": "#690005",
+        "text-muted": "#64748b",
+        "tertiary": "#10b981",
+        "on-secondary-fixed-variant": "#6900b3",
+        "on-tertiary": "#003824",
+        "primary": "#818cf8",
+        "on-tertiary-fixed-variant": "#005236",
+        "status-connected": "#10b981",
+        "error-container": "#93000a",
+        "on-surface-variant": "#94a3b8",
+        "surface": "#111318"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.125rem",
+        "lg": "0.25rem",
+        "xl": "0.5rem",
+        "full": "0.75rem"
+      },
+      "spacing": {
+        "margin": "1rem",
+        "space-md": "0.75rem",
+        "space-xl": "1.5rem",
+        "margin-desktop": "2rem",
+        "space-sm": "0.5rem",
+        "space-lg": "1rem",
+        "gutter": "1rem",
+        "space-xs": "0.25rem",
+        "gutter-desktop": "1.5rem"
+      },
+      "fontFamily": {
+        "label-md": ["Geist", "sans-serif"],
+        "headline-md": ["Geist", "sans-serif"],
+        "code-sm": ["JetBrains Mono", "monospace"],
+        "body-md": ["Geist", "sans-serif"],
+        "headline-xl": ["Geist", "sans-serif"],
+        "label-sm": ["JetBrains Mono", "monospace"],
+        "body-lg": ["Geist", "sans-serif"],
+        "headline-xl-mobile": ["Geist", "sans-serif"],
+        "code-lg": ["JetBrains Mono", "monospace"],
+        "headline-lg": ["Geist", "sans-serif"],
+        "body-sm": ["Geist", "sans-serif"]
+      },
+      "fontSize": {
+        "label-md": ["0.8125rem", {"lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "500"}],
+        "headline-md": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+        "code-sm": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "500"}],
+        "body-md": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+        "headline-xl": ["2rem", {"lineHeight": "2.5rem", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+        "label-sm": ["0.6875rem", {"lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500"}],
+        "body-lg": ["1rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+        "headline-xl-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+        "code-lg": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+        "headline-lg": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+        "body-sm": ["0.75rem", {"lineHeight": "1rem", "fontWeight": "400"}]
+      }
+    }
+  }
+}</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-white"><header class="fixed top-0 w-full z-50 bg-[#090b10]/90 backdrop-blur-xl border-b border-surface-border shadow-[0_1px_12px_rgba(0,0,0,0.5)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md shrink-0"><img alt="Generative AI Restoration Studio Logo" class="h-8 w-auto object-contain rounded-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1VJkSROlruskEC8lLGblX33fdMfkFy-Uvj7LMdkkOZUlFfV_Q24wZnWFc3lzNoy7Ow1OAxbKl1V_zNWTtpZrjOk359JkMAneYnKtf9cx7vD7hqRyif0wqvbDkGCA1Q8UGaHcGoX50VaFruT42Jf3vmj14zpLQYWJOZeugROg4Imi3nBn9tHih_SIM0syxpRWPkXViBWJojvwEBqdbB3JRohehPPN-mF-uivm0rEHcT67aMZ5h9sgWkyeLo"/><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-text-primary">Generative AI Restoration Studio</span><span class="px-space-xs py-0.5 rounded bg-surface-container-high border border-surface-border text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">v2.4-cvlab</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest border border-surface-border" data-active-classes="bg-surface-container-highest text-primary font-label-md rounded-lg shadow-[0_0_16px_rgba(99,102,241,0.25)]"><a aria-current="page" class="px-space-md py-space-xs transition-colors whitespace-nowrap bg-surface-container-highest text-primary font-label-md rounded-lg shadow-[0_0_16px_rgba(99,102,241,0.25)] border border-primary/30" data-path="universal-restoration" href="#">Universal Restoration</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="hard-routed-restoration" href="#">Hard-Routed Restoration</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="soft-mixture-of-experts" href="#">Soft Mixture-of-Experts</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="face-to-sketch" href="#">Face-to-Sketch</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-2 px-space-md py-1 rounded-full bg-surface-container border border-surface-border"><span class="h-2 w-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981] animate-pulse"></span><span class="font-code-sm text-code-sm text-on-surface">Backend: connected</span></div><div class="hidden xl:flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container border border-surface-border text-on-surface-variant font-code-sm text-code-sm"><span class="material-symbols-outlined text-[15px] text-primary">developer_board</span><span class="">RTX 4090 • CUDA 12.2</span></div><button class="p-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors flex items-center justify-center border border-transparent hover:border-surface-border" title="Toggle Theme Mode" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button><a class="p-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors flex items-center justify-center border border-transparent hover:border-surface-border" data-path="documentation" href="#" title="Research Documentation &amp; API"><span class="material-symbols-outlined text-[20px]">menu_book</span></a><div class="w-8 h-8 rounded-full bg-[#6366f1] shadow-[0_0_12px_rgba(99,102,241,0.5)] flex items-center justify-center text-white"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-background"><div class="flex flex-col w-full">
+<div class="w-full px-gutter-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto">
+<!-- Workspace Subheader: Status & Telemetry Header Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-low border border-surface-border p-space-md rounded-xl shadow-lg">
+<div class="flex items-center gap-space-md">
+<div class="p-space-xs rounded-lg bg-surface-container-high border border-surface-border text-primary flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-[24px]">auto_fix_high</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-text-primary">Universal Degradation Restoration</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest border border-primary/20 text-primary">Zero-Shot Unet-ViT</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Deterministic inverse-problem tensor reconstruction across parametric noise manifolds</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container border border-surface-border text-[#10b981] font-code-sm text-code-sm shadow-sm">
+<span class="h-2 w-2 rounded-full bg-[#10b981] shadow-[0_0_8px_#10b981] animate-pulse"></span>
+<span class="">Backend: connected</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high border border-surface-border text-on-surface-variant font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[15px] text-primary">speed</span>
+<span class="" id="headerLatency">Inference latency: 42 ms</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-high border border-surface-border text-on-surface font-code-sm text-code-sm">
+<span class="text-primary font-code-sm text-code-sm">PSNR 34.2 dB</span>
+<span class="text-on-surface-variant">•</span>
+<span class="text-on-surface-variant">SSIM 0.981</span>
+</div>
+</div>
+</div>
+<!-- Main Workbench Layout: 12 Columns -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Source Input & Parametric Degrader Controls (5 cols) -->
+<div class="xl:col-span-5 flex flex-col gap-space-lg">
+<!-- Input Source Tabs Card -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs bg-surface-container-lowest border border-surface-border p-1 rounded-lg">
+<button class="px-space-md py-1 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" id="tabUploadBtn" type="button">
+                Upload corrupted image
+              </button>
+<button class="px-space-md py-1 rounded font-label-md text-label-md bg-primary-container text-white shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-colors" id="tabSampleBtn" type="button">
+                Pick a clean sample
+              </button>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">8 Calibration Targets</span>
+</div>
+<!-- Tab Content: Clean Sample Gallery -->
+<div class="flex flex-col gap-space-sm" id="samplePanel">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Benchmark Calibration Datasets (DIV2K / Set14)</span>
+<div class="grid grid-cols-4 gap-space-xs" id="sampleGrid">
+<!-- Sample 1 (Default Selected) -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-primary/40 shadow-sm transition-all focus:outline-none ring-1 ring-primary/50" data-label="Aerial Urban Orthophoto" data-sample-idx="0" type="button">
+<img class="w-full h-full object-cover" data-alt="High-resolution aerial overhead satellite view of urban city layout with intricate road grids, modern buildings, deep blue and cool teal architectural palette, crisp optical clarity, 8k raw visual dataset." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUFMVLKlVW8ato-vteGbTPgvrbDgx7UbPhdQs4YccOTONWtRUE__6uZ7LfVZaYGc_exoeFIEbLIcRxiRoB6g2y9eryOrKEa4oliDTU0MobEnebcz7vZOQe5Ylnv-O0rMRXSBoM2d0m3O8aRW8H5gQrhesCDCghLdoQrYPTEFL8egaq53h0Y0FObBsguACHpj-VpuEWzVjQxaoGfDPzfdOb01JtMzfOvwkJrAfh5GPIGVrsh089gb9y"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-100 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] flex items-center justify-center sample-check shadow-[0_0_8px_rgba(99,102,241,0.8)]">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Urban DIV2K</span>
+</button>
+<!-- Sample 2 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Bioluminescent Specimen" data-sample-idx="1" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Fluorescence microscopy scan of cellular neural filaments, electric cyan and deep midnight slate, luminous subcellular organelles, sharp focus scientific laboratory sample." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9jpDosTYqz9XpgnqSIxqy3eAAcPnMjf1C7ZwZ8oeHuiCHS5fSfW88Eucxb8M2N0mbbvdLd9LWVd-A7JjBigPyxtg2XfzJPiSST-08rQA2uYBrUP3qaOrGW7n4uM2499_A-mN4H7XMhGB0j-dQNWR0sV9m9_ngUdGc7NdEdHxMUa4ALlxsVFOuvEeQhzH-PC6PRKjXLJ-CTglSBZuI8hmvfqWBK8LeyhXhiUxpYxRrONoh8absUBbx"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">BioMicro #4</span>
+</button>
+<!-- Sample 3 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Silicon Wafer Lithography" data-sample-idx="2" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Macro electron microscope photograph of a high-density semiconductor microchip die, gold and cool cyan nanometer circuits, sharp geometric paths, dark silicon surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzmYNaBovXD4uMf0t-2kcwWUctpMqU_Wk3Z_I2eR3KdUueaYt0wiBA6lcZSWNVildFcRTutwAdD__dw-oY3vVEed-Teh01CKox9R5mDNf36DrKdUThW8F5EbVgGtE7C1zgcAf3iKY0JChUJh8ncTKEFASQnGJRgi7Ea6oNqE1dkUe3GkYTenTXpgxRidyI28WYgDnHzxiMRWrxDBFPVaQ0EMJl8lSHKTl_iGU1Z9gx0Zu9zRKnjXaQ"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Wafer-3nm</span>
+</button>
+<!-- Sample 4 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Studio Portrait Specimen" data-sample-idx="3" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Close-up studio studio cinematic portrait of woman in soft ambient teal and slate lighting, detailed skin pores, high dynamic range, clean reference ground truth photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5NFxrtm2v3-WBXPAh29Iv18011pcSbFw0OXFlNQZsNnXAapbVbB1-VKmMsuFB7Xv1GApTrGd9w1KO2SK6wtQRIDEt-Zt_uYtLs1-YGBhbtNbUq9rgA3nBOHGVlWB8VskU8BwU36GbycWsPO3BDpCvPBqpb-K1Sbm3I3jYEFVGyOkwbK3815mgzsePwxx-N69bVov1GmgHAprvUy5KhxDat19R4Q_AYi6lk5hjvs2Eo3pGtDzzh8x1"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Portrait-HQ</span>
+</button>
+<!-- Sample 5 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Astronomical Deep Field" data-sample-idx="4" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Deep space telescope astrophotography capturing cosmic nebula spiral arms with cyan ionized hydrogen gas clouds against dense starfield in obsidian vacuum." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS8vRfjctuki2JTZqrgI1iqWXYT4yOlb6wgv-kk5ApRHldec3p-8-2vSpzbVs1dLJ8pA1oIqXhUs7WzvQ_4T9v-oZbtfHQyR4T_HnUuzGMWQdyumqDSVzd0DMxcrGuY-SRIVx_4dY5z7t6l879q6lSp3lTkvPmlORkVOJLc42NeKmYZMXxBQwZdVKIygvMfQSlerRM1WDApxymV_DR4xpLILfxuhrKdAg4XcnCoVFRVXDeHcsKP7gq"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Nebula-HST</span>
+</button>
+<!-- Sample 6 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Monochrome Architectural Facade" data-sample-idx="5" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Minimalist brutalist concrete architectural perspective with clean repetitive shadows, cold grey stone, tinted cyan glass windows, extreme structural sharpness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmpo_XsCTj_ndigE1lUPbACcONJwRl3J0_zlKg2d7ExyYpPpp4mS727xfIr7smXsrNU6XMA892lITvIoIDG2fjNWrkpPzGWQ6U4VhcWB3nfGyvTfHUHu42UWMfNzj863eMTNrJOAaALBFXoa98qKaT5eOebSwnX1tO6PepHpmdvltAjxx9mX0quKFcWgZlWLGtPMnMbASNLkc_x29cgWrKqwqFxBcEs2bgHsekQkan5m25USchz4CD"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Facade-12</span>
+</button>
+<!-- Sample 7 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Botanical Leaf Venation" data-sample-idx="6" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Extreme macro photography of leaf venation network with translucent emerald teal chlorophyll membranes backlit by studio diffuse cold lights, microscopic biological detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsfarG58LGrxPefSXJFMDbi_FXK-G1TXqrcLuKBSwHQb2RtkgpXqLtOovjgIBQ6vRjd1Pc0PaOPA7Kw62mfSte15JbGZD97gIxUikVPmmdFwsgZYqgChMJ-r6G7nI1MZvXk-l79F0UwmDVgY-4RBLEa4o52Gzl-ZJ4lsDFora8_YUjxq4Td_lplHAIrzTbePPKIAiNkWiKA8eX_NkWNQqkJFA9R72kj_fBuTQOjiCMhAeDB9bMnakO"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">Flora-Cell</span>
+</button>
+<!-- Sample 8 -->
+<button class="sample-btn relative group aspect-square rounded-lg overflow-hidden bg-surface-container-highest border border-surface-border shadow-sm transition-all focus:outline-none" data-label="Thermal Imaging Target" data-sample-idx="7" type="button">
+<img class="w-full h-full object-cover opacity-85 group-hover:opacity-100" data-alt="Industrial infrared thermography visualization of heat dispersion on electronic circuit board with cold teal heat sinks and luminous cyan high thermal traces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs1ppr-nNHn10gdZ_LUDJH8YTl14Fi4eKL6Fe34OxJ1oojPBBTJKts52iVTv2t7zKZ05oFkQAkPAgrrFNqpohgjlE5zJFqQK8PQI-uwmZ2K384d-5YzFfgNp_lkj1M9XXrGc286XrL3yBOjctJ4BJ49q8TXR-QUtSLkC-RDQ2LsSLDrgYE40M3vbngsZU_Oj6wStirmSf1HWxL_6lwlJKI1PgTZiETFyhtq94oj0jG-bRjos9ie2kA"/>
+<div class="absolute inset-0 bg-[#6366f1]/25 opacity-0 sample-overlay transition-opacity"></div>
+<div class="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#6366f1] hidden items-center justify-center sample-check shadow">
+<span class="material-symbols-outlined text-white text-[12px] font-bold">check</span>
+</div>
+<span class="absolute bottom-0 inset-x-0 bg-surface-container-lowest/90 text-[10px] font-code-sm text-on-surface px-1 py-0.5 truncate text-left border-t border-surface-border">FLIR-Board</span>
+</button>
+</div>
+</div>
+<!-- Dropzone Area -->
+<div class="relative group cursor-pointer p-space-lg rounded-xl bg-surface-container-lowest border border-surface-border hover:border-primary/50 flex flex-col items-center justify-center text-center transition-all shadow-inner" id="dropzonePanel">
+<input accept="image/png, image/jpeg, image/webp" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" id="fileInput" type="file"/>
+<div class="w-12 h-12 rounded-full bg-surface-container-high group-hover:bg-primary-container text-primary group-hover:text-white flex items-center justify-center transition-colors mb-space-sm shadow-sm border border-surface-border">
+<span class="material-symbols-outlined text-[26px]">cloud_upload</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">
+              Drop an image here or click to browse
+            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Supports JPG, PNG up to 10 MB (Auto-quantized to 512×512 RGB tensors)
+            </p>
+<div class="flex items-center gap-space-xs mt-space-sm text-on-surface-variant font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[14px] text-primary">shield</span>
+<span class="">Local tensor execution • Zero telemetry upload</span>
+</div>
+</div>
+</div>
+<!-- Parametric Degradation & Model Control Panel -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md flex flex-col gap-space-md shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px] text-primary">tune</span>
+              Corruption Synthesis &amp; Routing
+            </span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded bg-surface-container border border-surface-border text-primary">Synthetic Noise Injector</span>
+</div>
+<!-- Controls Form -->
+<div class="flex flex-col gap-space-md">
+<!-- Corruption Type Dropdown -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface" for="corruptionSelect">Corruption type</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-surface-border text-on-surface font-body-md text-body-md rounded-lg px-space-md py-space-sm appearance-none focus:outline-none focus:border-primary/50 cursor-pointer shadow-sm" id="corruptionSelect">
+<option selected="" value="salt-pepper">Salt-and-pepper (Impulse Noise)</option>
+<option value="gaussian">Additive White Gaussian Noise (AWGN)</option>
+<option value="motion-blur">Atmospheric &amp; Motion Defocus Blur</option>
+<option value="jpeg-artifacts">High-Ratio Block Compression (JPEG-Q10)</option>
+<option value="turbulence">Turbulent Atmospheric Scintillation</option>
+</select>
+<div class="absolute right-space-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Severity Pills -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface">Severity Level</label>
+<span class="font-code-sm text-code-sm text-primary" id="severityValueLabel">σ = 0.70 (High)</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs" id="severityButtonGroup">
+<button class="sev-btn py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-surface-container border border-surface-border text-on-surface-variant hover:text-on-surface transition-all text-center" data-severity="low" type="button">
+                  Low (σ: 0.20)
+                </button>
+<button class="sev-btn py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-surface-container border border-surface-border text-on-surface-variant hover:text-on-surface transition-all text-center" data-severity="medium" type="button">
+                  Medium (σ: 0.45)
+                </button>
+<button class="sev-btn py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-primary-container text-white font-semibold transition-all text-center shadow-[0_0_16px_rgba(99,102,241,0.35)] border border-primary/50" data-severity="high" type="button">
+                  High (σ: 0.70)
+                </button>
+</div>
+</div>
+<!-- Plain Text Degradation Summary Box -->
+<div class="p-space-sm rounded-lg bg-surface-container-lowest border border-surface-border flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">analytics</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Active Pipeline Configuration:</span>
+</div>
+<span class="font-code-sm text-code-sm text-primary font-medium" id="pipelineSummary">Salt-and-pepper, high severity</span>
+</div>
+<!-- Action Button -->
+<button class="w-full py-space-md px-space-xl bg-[#6366f1] hover:bg-[#818cf8] text-white font-headline-md text-headline-md rounded-xl transition-all shadow-[0_0_24px_rgba(99,102,241,0.45)] hover:shadow-[0_0_32px_rgba(99,102,241,0.65)] flex items-center justify-center gap-space-sm cursor-pointer active:scale-[0.99] border border-indigo-400/30" id="runRestorationBtn" type="button">
+<span class="material-symbols-outlined text-[22px]" id="runIcon">play_circle</span>
+<span class="" id="runBtnLabel">Run Restoration</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Output Evaluation Workspace & Empty State (7 cols) -->
+<div class="xl:col-span-7 flex flex-col gap-space-lg">
+<!-- Active Inspection Matrix (Three-Panel Comparison) -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md flex flex-col gap-space-md shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-text-primary">Comparative Tensor Inspection</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-highest border border-surface-border text-on-surface-variant">Aligned 1:1 Pixel Space</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-lowest border border-surface-border p-1 rounded-lg">
+<button class="px-space-sm py-0.5 rounded text-white bg-primary-container font-label-sm text-label-sm shadow-[0_0_10px_rgba(99,102,241,0.3)]" id="viewModeTri" type="button">Triptych</button>
+<button class="px-space-sm py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" id="viewModeSplit" type="button">Diff Map</button>
+<button class="px-space-sm py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" id="viewModeMetrics" type="button">Histograms</button>
+</div>
+</div>
+<!-- Three Side-by-Side Image Panels in dark frames -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="triptychGrid">
+<!-- Panel 1: Input (Corrupted) -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-container border border-surface-border shadow-md">
+<div class="px-space-sm py-space-xs bg-surface-container-high border-b border-surface-border flex items-center justify-between">
+<span class="font-label-md text-label-md text-error flex items-center gap-1">
+<span class="h-1.5 w-1.5 rounded-full bg-error"></span>
+                  Input (Corrupted)
+                </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Noise: High</span>
+</div>
+<div class="relative aspect-square w-full bg-surface-container-lowest overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Aerial overhead urban layout heavily degraded by stark salt and pepper digital noise with black and white static artifact pixelation covering architectural features, dark slate aesthetic." id="corruptedImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-_4dO1vrb2G0kkI9syCWm8Lu3y-R4PeZmknRV9FaKStvEwfZ0Va8kzfaQWKPoKDFOzkAF4p60Sau5EgZ2PeIAqZR03P4pqlWbOioLS0lAuk7cy7UCO8fqLWc2-4BEWBKwb-v8CzjTTbDRurSic0jHlMsoVC94Dw6_GYNf1fRb2irHhcWDeSgCtYfBF5byrvqnHF9PZetUe62Z__GSUw-jUnXnagAQa3rgmDZ1ml2T-vKVV87l4nk8"/>
+<div class="absolute inset-0 bg-error/10 pointer-events-none mix-blend-screen opacity-40"></div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/80 border border-surface-border text-[11px] font-code-sm text-error">
+                  PSNR: 14.8 dB
+                </div>
+</div>
+</div>
+<!-- Panel 2: Restored output -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-container border border-primary/40 shadow-[0_0_16px_rgba(99,102,241,0.2)] relative">
+<div class="px-space-sm py-space-xs bg-gradient-to-r from-[#6366f1] to-[#8b5cf6] text-white flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold flex items-center gap-1 text-white">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+                  Restored output
+                </span>
+<span class="font-code-sm text-code-sm text-white/90 bg-black/25 px-1.5 py-0.2 rounded">U-Net Restormer</span>
+</div>
+<div class="relative aspect-square w-full bg-surface-container-lowest overflow-hidden group">
+<img class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" data-alt="Extremely crisp aerial satellite photo reconstructed with clean sharp roads, restored buildings without any noise or salt-pepper static, pristine neural edge reconstruction." id="restoredImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQJE14Kms2doXI7k5RWzY6WQY_DKEPYQdHXcHXMKyDeuwYeu9cl8ocHbsRvMx7TEpgNf5kcf7sG4KLCuo5lz2t27CONCbTIWZUK-n9R-eJEUKMfqNiZYznmwQtscyBAe5HkFCIcBAJLjnaXfocsDeo0D9bBSfZC8uhOQCc5L4MBMBp6c8bEzlQaTQp3jPFSrxPZ5kpF4-PqaZQXI5WAxznrQ4Y7bLZmW3JJvE7nOz777O7eDSBEAMC"/>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 border border-primary/40 text-[11px] font-code-sm text-primary flex items-center gap-1 shadow-[0_0_10px_rgba(99,102,241,0.3)]">
+<span class="material-symbols-outlined text-[12px] text-primary">auto_awesome</span>
+<span class="">Restored</span>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 border border-primary/40 text-[11px] font-code-sm text-primary font-semibold">
+                  PSNR: 34.2 dB (+19.4)
+                </div>
+</div>
+</div>
+<!-- Panel 3: Original (Clean Sample) -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-container border border-surface-border shadow-md">
+<div class="px-space-sm py-space-xs bg-surface-container-high border-b border-surface-border flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="h-1.5 w-1.5 rounded-full bg-[#10b981]"></span>
+                  Original (Clean Sample)
+                </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Ground Truth</span>
+</div>
+<div class="relative aspect-square w-full bg-surface-container-lowest overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Reference ground truth high-definition urban orthophoto with flawless details, clean road vectors, and natural cool color saturation." id="cleanImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeJqighR8Mf_W69URcnx6yhWhM3_e6E6j19hbcjeTdHm60OP9UW_wH_p990xLs-89JdAG3AQooI-npi4R-nrAO5zRKFzDM0P1DTuV8qUxzyiUcCIifva_Cnwnzj5wrodArMgx_9hpKT2BWaR7jNGOkysgiWMuZ-3bvV0u3ugczx3ixBJz8N01SucM2asDW0VDgamqcA8Wnd-jcEKI80QlXyVFzRpUs-5G7TiBqPwZiGvYQ0jYvlG31"/>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/80 border border-surface-border text-[11px] font-code-sm text-on-surface-variant">
+                  Reference GT (512x512)
+                </div>
+</div>
+</div>
+</div>
+<!-- Telemetry Badges Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-xs pt-space-xs">
+<div class="p-space-sm rounded-lg bg-surface-container border border-surface-border flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Inference Execution</span>
+<span class="font-code-lg text-code-lg text-primary font-bold">42 ms</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container border border-surface-border flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Peak SNR (PSNR)</span>
+<div class="flex items-center gap-1">
+<span class="font-code-lg text-code-lg text-[#818cf8] font-bold">34.2 dB</span>
+<span class="text-[11px] font-code-sm text-[#818cf8]">▲ +19.4</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container border border-surface-border flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Structural (SSIM)</span>
+<div class="flex items-center gap-1">
+<span class="font-code-lg text-code-lg text-on-surface font-bold">0.9814</span>
+<span class="text-[11px] font-code-sm text-primary">▲ +0.42</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container border border-surface-border flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Perceptual (LPIPS)</span>
+<div class="flex items-center gap-1">
+<span class="font-code-lg text-code-lg text-[#a855f7] font-bold">0.038</span>
+<span class="text-[11px] font-code-sm text-[#a855f7]">▼ Best</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dedicated Empty State Preview Card -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-xl flex flex-col items-center justify-center text-center shadow-md relative overflow-hidden" id="emptyStateCard">
+<div class="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-[#6366f1]/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-16 -left-16 w-52 h-52 rounded-full bg-[#a855f7]/10 blur-3xl pointer-events-none"></div>
+<!-- Clean Vector Placeholder Illustration -->
+<div class="w-32 h-32 mb-space-md text-primary flex items-center justify-center relative">
+<svg class="w-full h-full text-surface-container-highest" fill="none" viewbox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid background -->
+<rect fill="currentColor" fill-opacity="0.25" height="100" rx="8" width="100" x="10" y="10"></rect>
+<path d="M10 35H110M10 60H110M10 85H110M35 10V110M60 10V110M85 10V110" stroke="#33353a" stroke-dasharray="2 3" stroke-width="0.75"></path>
+<!-- Clean Target Diamond / Lens graphic -->
+<circle class="stroke-[#6366f1]" cx="60" cy="60" r="30" stroke-opacity="0.9" stroke-width="1.5"></circle>
+<circle class="stroke-[#a855f7]" cx="60" cy="60" r="18" stroke-dasharray="4 2" stroke-width="1.2"></circle>
+<circle class="fill-[#818cf8]" cx="60" cy="60" r="4"></circle>
+<!-- Crosshair guides -->
+<line class="stroke-[#6366f1]" stroke-width="1.5" x1="60" x2="60" y1="22" y2="34"></line>
+<line class="stroke-[#6366f1]" stroke-width="1.5" x1="60" x2="60" y1="86" y2="98"></line>
+<line class="stroke-[#6366f1]" stroke-width="1.5" x1="22" x2="34" y1="60" y2="60"></line>
+<line class="stroke-[#6366f1]" stroke-width="1.5" x1="86" x2="98" y1="60" y2="60"></line>
+<!-- Corner brackets -->
+<path class="stroke-on-surface-variant" d="M18 28V18H28" stroke-linecap="round" stroke-width="1.5"></path>
+<path class="stroke-on-surface-variant" d="M102 28V18H92" stroke-linecap="round" stroke-width="1.5"></path>
+<path class="stroke-on-surface-variant" d="M18 92V102H28" stroke-linecap="round" stroke-width="1.5"></path>
+<path class="stroke-on-surface-variant" d="M102 92V102H92" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<span class="font-headline-lg text-headline-lg text-text-primary mb-space-xs">Upload an image to get started</span>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mb-space-md">
+            Choose a corrupted tensor file from your local storage or select one of the 8 DIV2K ground-truth benchmark calibration images above to trigger zero-shot parameterization.
+          </p>
+<div class="flex flex-wrap items-center justify-center gap-space-sm">
+<button class="px-space-lg py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-bright border border-surface-border text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1.5" onclick="document.getElementById('fileInput').click()" type="button">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+              Select Local File
+            </button>
+<button class="px-space-lg py-space-sm rounded-lg bg-primary-container hover:bg-[#818cf8] text-white font-label-md text-label-md transition-colors flex items-center gap-1.5 shadow-[0_0_12px_rgba(99,102,241,0.3)]" id="useActiveSampleBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">dataset</span>
+              Load DIV2K Urban Sample
+            </button>
+</div>
+</div>
+<!-- Latency & Degradation Manifold Telemetry Card -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md flex flex-col gap-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">scatter_plot</span>
+              Spectral Power Density &amp; Noise Histogram
+            </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">FFT Residual Magnitude</span>
+</div>
+<!-- Inline SVG Visual Telemetry Chart -->
+<div class="w-full h-24 bg-surface-container-lowest border border-surface-border rounded-lg p-space-xs flex items-end justify-between gap-1 overflow-hidden">
+<!-- Simulated Spectrum Histogram Bars shifted to Indigo / Violet -->
+<div class="flex-1 bg-surface-container-high hover:bg-primary transition-all rounded-t-sm h-[20%]"></div>
+<div class="flex-1 bg-surface-container-high hover:bg-primary transition-all rounded-t-sm h-[32%]"></div>
+<div class="flex-1 bg-surface-container-high hover:bg-primary transition-all rounded-t-sm h-[48%]"></div>
+<div class="flex-1 bg-surface-container-high hover:bg-primary transition-all rounded-t-sm h-[65%]"></div>
+<div class="flex-1 bg-[#6366f1]/70 rounded-t-sm h-[88%]"></div>
+<div class="flex-1 bg-[#6366f1] rounded-t-sm h-[94%] shadow-[0_0_8px_rgba(99,102,241,0.5)]"></div>
+<div class="flex-1 bg-[#818cf8] rounded-t-sm h-[75%]"></div>
+<div class="flex-1 bg-[#818cf8]/70 rounded-t-sm h-[52%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[34%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[26%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[18%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[22%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[31%]"></div>
+<div class="flex-1 bg-[#a855f7]/80 rounded-t-sm h-[56%]"></div>
+<div class="flex-1 bg-[#a855f7] rounded-t-sm h-[78%] shadow-[0_0_8px_rgba(168,85,247,0.5)]"></div>
+<div class="flex-1 bg-[#c084fc] rounded-t-sm h-[84%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[44%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[28%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[14%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[12%]"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-sm h-[09%]"></div>
+</div>
+<div class="flex items-center justify-between font-code-sm text-code-sm text-on-surface-variant">
+<span class="">Low-Freq (0 Hz)</span>
+<span class="text-primary font-medium">Nyquist Harmonic Peak (256 cycles)</span>
+<span class="">High-Freq (π rad)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for UI States & Micro-Interactions -->
+<script>
+    (function initWorkspace() {
+      // Elements
+      const corruptionSelect = document.getElementById('corruptionSelect');
+      const sevButtons = document.querySelectorAll('.sev-btn');
+      const pipelineSummary = document.getElementById('pipelineSummary');
+      const severityValueLabel = document.getElementById('severityValueLabel');
+      const sampleButtons = document.querySelectorAll('.sample-btn');
+      const runBtn = document.getElementById('runRestorationBtn');
+      const runIcon = document.getElementById('runIcon');
+      const runBtnLabel = document.getElementById('runBtnLabel');
+      const headerLatency = document.getElementById('headerLatency');
+      const tabUploadBtn = document.getElementById('tabUploadBtn');
+      const tabSampleBtn = document.getElementById('tabSampleBtn');
+      const samplePanel = document.getElementById('samplePanel');
+      const dropzonePanel = document.getElementById('dropzonePanel');
+      const fileInput = document.getElementById('fileInput');
+      const useActiveSampleBtn = document.getElementById('useActiveSampleBtn');
+
+      let currentSeverity = 'high';
+      let currentSampleTitle = 'Urban DIV2K';
+
+      // Severity Configuration Map
+      const severityMap = {
+        low: { sigma: 'σ = 0.20 (Low)', label: 'low severity' },
+        medium: { sigma: 'σ = 0.45 (Medium)', label: 'medium severity' },
+        high: { sigma: 'σ = 0.70 (High)', label: 'high severity' }
+      };
+
+      function updateSummary() {
+        const text = corruptionSelect.options[corruptionSelect.selectedIndex].text.split('(')[0].trim();
+        const sevInfo = severityMap[currentSeverity];
+        severityValueLabel.textContent = sevInfo.sigma;
+        pipelineSummary.textContent = `${text}, ${sevInfo.label}`;
+      }
+
+      // Dropdown change
+      corruptionSelect.addEventListener('change', updateSummary);
+
+      // Severity Buttons toggle
+      sevButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sevButtons.forEach(b => {
+            b.className = 'sev-btn py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-surface-container border border-surface-border text-on-surface-variant hover:text-on-surface transition-all text-center';
+          });
+          btn.className = 'sev-btn py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-primary-container text-white font-semibold transition-all text-center shadow-[0_0_16px_rgba(99,102,241,0.35)] border border-primary/50';
+          currentSeverity = btn.getAttribute('data-severity');
+          updateSummary();
+        });
+      });
+
+      // Sample Selection
+      sampleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sampleButtons.forEach(b => {
+            b.classList.remove('border-primary/40', 'ring-1', 'ring-primary/50');
+            b.classList.add('border-surface-border');
+            b.querySelector('.sample-overlay').classList.replace('opacity-100', 'opacity-0');
+            b.querySelector('.sample-check').classList.replace('flex', 'hidden');
+          });
+          btn.classList.add('border-primary/40', 'ring-1', 'ring-primary/50');
+          btn.classList.remove('border-surface-border');
+          btn.querySelector('.sample-overlay').classList.replace('opacity-0', 'opacity-100');
+          btn.querySelector('.sample-check').classList.replace('hidden', 'flex');
+          currentSampleTitle = btn.getAttribute('data-label');
+          if (useActiveSampleBtn) {
+            useActiveSampleBtn.textContent = `Load ${currentSampleTitle}`;
+          }
+        });
+      });
+
+      // Tab toggling (Upload vs Clean Samples)
+      tabUploadBtn.addEventListener('click', () => {
+        tabUploadBtn.className = 'px-space-md py-1 rounded font-label-md text-label-md bg-primary-container text-white shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-colors';
+        tabSampleBtn.className = 'px-space-md py-1 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors';
+        samplePanel.classList.add('hidden');
+        dropzonePanel.classList.remove('hidden');
+      });
+
+      tabSampleBtn.addEventListener('click', () => {
+        tabSampleBtn.className = 'px-space-md py-1 rounded font-label-md text-label-md bg-primary-container text-white shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-colors';
+        tabUploadBtn.className = 'px-space-md py-1 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors';
+        samplePanel.classList.remove('hidden');
+        dropzonePanel.classList.add('hidden');
+      });
+
+      // File input interaction feedback
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const file = e.target.files[0];
+          pipelineSummary.textContent = `Uploaded: ${file.name.slice(0, 18)}... (${(file.size / 1024).toFixed(0)} KB)`;
+        }
+      });
+
+      if (useActiveSampleBtn) {
+        useActiveSampleBtn.addEventListener('click', () => {
+          pipelineSummary.textContent = `Target active: ${currentSampleTitle}`;
+        });
+      }
+
+      // Run button loading animation
+      runBtn.addEventListener('click', () => {
+        runBtn.disabled = true;
+        runIcon.textContent = 'hourglass_empty';
+        runIcon.classList.add('animate-spin');
+        runBtnLabel.textContent = 'Executing TensorRT Kernel...';
+
+        setTimeout(() => {
+          runBtn.disabled = false;
+          runIcon.textContent = 'check_circle';
+          runIcon.classList.remove('animate-spin');
+          runBtnLabel.textContent = 'Restoration Complete (42 ms)';
+          headerLatency.textContent = 'Inference latency: 42 ms';
+
+          setTimeout(() => {
+            runIcon.textContent = 'play_circle';
+            runBtnLabel.textContent = 'Run Restoration';
+          }, 2400);
+        }, 1100);
+      });
+
+      updateSummary();
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-border py-space-md"><div class="w-full px-gutter-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant"><div class="flex items-center gap-space-md"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-primary">memory</span> Inference Cluster: US-WEST-2</span><span class="">|</span><span class="font-code-sm text-code-sm">Latency: 18ms</span><span class="">|</span><span class="font-code-sm text-code-sm">FP16 TensorRT Active</span></div><div class="flex items-center gap-space-md"><span class="">Computational Imaging Lab © 2025</span><a class="hover:text-on-surface transition-colors" data-path="documentation" href="#">API Specs</a><a class="hover:text-on-surface transition-colors" href="#">Benchmarks</a></div></div></footer>
+</body></html>

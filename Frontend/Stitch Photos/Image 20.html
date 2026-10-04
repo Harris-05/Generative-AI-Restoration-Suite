@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "status-warning": "#f59e0b",
+          "secondary-container": "#6f00be",
+          "surface-border": "rgba(255, 255, 255, 0.08)",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "status-critical": "#f43f5e",
+          "on-secondary-fixed": "#2c0051",
+          "surface-container": "#1e1f25",
+          "cyber-cyan": "#06b6d4",
+          "surface-dim": "#111318",
+          "on-secondary-container": "#d6a9ff",
+          "surface-overlay": "#161e2e",
+          "surface-container-high": "#282a2f",
+          "on-error-container": "#ffdad6",
+          "indigo-glow": "rgba(99, 102, 241, 0.25)",
+          "on-primary": "#ffffff",
+          "surface-border-active": "rgba(99, 102, 241, 0.4)",
+          "surface-variant": "#33353a",
+          "text-secondary": "#94a3b8",
+          "surface-base": "#090b10",
+          "inverse-surface": "#e2e2e9",
+          "primary-fixed-dim": "#c0c1ff",
+          "secondary-fixed-dim": "#ddb7ff",
+          "surface-bright": "#37393f",
+          "on-primary-fixed": "#07006c",
+          "on-tertiary-container": "#000703",
+          "secondary": "#ddb7ff",
+          "violet-glow": "rgba(168, 85, 247, 0.25)",
+          "surface-tint": "#c0c1ff",
+          "inverse-primary": "#494bd6",
+          "on-background": "#e2e2e9",
+          "inverse-on-surface": "#2e3036",
+          "on-surface": "#e2e2e9",
+          "tertiary-fixed-dim": "#4edea3",
+          "tertiary-fixed": "#6ffbbe",
+          "secondary-fixed": "#f0dbff",
+          "surface-raised": "#0f141f",
+          "outline-variant": "#464554",
+          "on-primary-container": "#0d0096",
+          "error": "#ffb4ab",
+          "tertiary-container": "#00885d",
+          "background": "#090b10",
+          "primary-fixed": "#e1e0ff",
+          "surface-container-low": "#1a1b21",
+          "surface-container-lowest": "#0c0e13",
+          "on-tertiary-fixed": "#002113",
+          "outline": "#908fa0",
+          "text-primary": "#f8fafc",
+          "on-secondary": "#490080",
+          "surface-container-highest": "#33353a",
+          "primary-container": "#8083ff",
+          "on-error": "#690005",
+          "text-muted": "#64748b",
+          "tertiary": "#10b981",
+          "on-secondary-fixed-variant": "#6900b3",
+          "on-tertiary": "#003824",
+          "primary": "#6366f1",
+          "on-tertiary-fixed-variant": "#005236",
+          "status-connected": "#10b981",
+          "error-container": "#93000a",
+          "on-surface-variant": "#c7c4d7",
+          "surface": "#111318"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin": "1rem",
+          "space-md": "0.75rem",
+          "space-xl": "1.5rem",
+          "margin-desktop": "2rem",
+          "space-sm": "0.5rem",
+          "space-lg": "1rem",
+          "gutter": "1rem",
+          "space-xs": "0.25rem",
+          "gutter-desktop": "1.5rem"
+        },
+        "fontFamily": {
+          "label-md": ["Geist"],
+          "headline-md": ["Geist"],
+          "code-sm": ["JetBrains Mono"],
+          "body-md": ["Geist"],
+          "headline-xl": ["Geist"],
+          "label-sm": ["JetBrains Mono"],
+          "body-lg": ["Geist"],
+          "headline-xl-mobile": ["Geist"],
+          "code-lg": ["JetBrains Mono"],
+          "headline-lg": ["Geist"],
+          "body-sm": ["Geist"]
+        },
+        "fontSize": {
+          "label-md": ["0.8125rem", {"lineHeight": "1.125rem", "letterSpacing": "0.01em", "fontWeight": "500"}],
+          "headline-md": ["1.25rem", {"lineHeight": "1.75rem", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+          "code-sm": ["0.75rem", {"lineHeight": "1rem", "letterSpacing": "0em", "fontWeight": "500"}],
+          "body-md": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+          "headline-xl": ["2rem", {"lineHeight": "2.5rem", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+          "label-sm": ["0.6875rem", {"lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-lg": ["1rem", {"lineHeight": "1.5rem", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-xl-mobile": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "code-lg": ["0.875rem", {"lineHeight": "1.25rem", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "headline-lg": ["1.5rem", {"lineHeight": "2rem", "letterSpacing": "-0.025em", "fontWeight": "600"}],
+          "body-sm": ["0.75rem", {"lineHeight": "1rem", "fontWeight": "400"}]
+        }
+      },
+    },
+  }
+</script></head><body class="bg-surface-base font-body-md text-body-md text-on-surface antialiased min-h-screen selection:bg-indigo-600/30 selection:text-indigo-200"><header class="fixed top-0 w-full z-50 bg-surface-dim/90 backdrop-blur-xl border-b border-surface-border shadow-[0_1px_16px_rgba(0,0,0,0.5)]"><div class="h-16 w-full px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md shrink-0"><img alt="Generative AI Restoration Studio Logo" class="h-8 w-8 object-contain rounded" src="https://lh3.googleusercontent.com/aida/AEtjO1VJkSROlruskEC8lLGblX33fdMfkFy-Uvj7LMdkkOZUlFfV_Q24wZnWFc3lzNoy7Ow1OAxbKl1V_zNWTtpZrjOk359JkMAneYnKtf9cx7vD7hqRyif0wqvbDkGCA1Q8UGaHcGoX50VaFruT42Jf3vmj14zpLQYWJOZeugROg4Imi3nBn9tHih_SIM0syxpRWPkXViBWJojvwEBqdbB3JRohehPPN-mF-uivm0rEHcT67aMZ5h9sgWkyeLo"/><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-text-primary">Generative AI Restoration Studio</span><span class="px-space-xs py-0.5 rounded border border-surface-border bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">v2.4-cvlab</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest border border-surface-border" data-active-classes="bg-surface-container-highest text-indigo-400 font-label-md rounded-lg shadow-[0_0_12px_rgba(99,102,241,0.25)]"><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="universal-restoration" href="#">Universal Restoration</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="hard-routed-restoration" href="#">Hard-Routed Restoration</a><a class="px-space-md py-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors whitespace-nowrap" data-path="soft-mixture-of-experts" href="#">Soft Mixture-of-Experts</a><a aria-current="page" class="px-space-md py-space-xs transition-colors whitespace-nowrap bg-surface-container-highest text-indigo-400 font-label-md rounded-lg shadow-sm border border-indigo-500/20" data-path="face-to-sketch" href="#">Face-to-Sketch</a></nav><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-2 px-space-md py-1 rounded-full bg-surface-container-low border border-surface-border"><span class="h-2 w-2 rounded-full bg-status-connected animate-pulse"></span><span class="font-code-sm text-code-sm text-on-surface">Backend: connected</span></div><div class="hidden xl:flex items-center gap-1.5 px-space-md py-1 rounded-full bg-surface-container-low border border-surface-border text-on-surface-variant font-code-sm text-code-sm"><span class="material-symbols-outlined text-[15px] text-indigo-400">developer_board</span><span class="">RTX 4090 • CUDA 12.2</span></div><button class="p-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors flex items-center justify-center border border-transparent hover:border-surface-border" title="Toggle Theme Mode" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button><a class="p-space-xs text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-lg transition-colors flex items-center justify-center border border-transparent hover:border-surface-border" data-path="documentation" href="#" title="Research Documentation &amp; API"><span class="material-symbols-outlined text-[20px]">menu_book</span></a><div class="w-8 h-8 rounded-full bg-indigo-600/30 border border-indigo-400/40 text-indigo-300 flex items-center justify-center"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface-base"><div class="flex flex-col w-full">
+<div class="w-full px-gutter-desktop py-space-md flex flex-col gap-space-md">
+<!-- Top Alert Notification (Simulated Toggleable Warning/Error Banner) -->
+<div class="w-full rounded-xl bg-error-container text-on-error-container px-space-lg py-space-md flex items-center justify-between shadow-md transition-all duration-300 border border-status-critical/30" id="error-alert">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-[20px] text-error">warning</span>
+<div class="flex flex-col sm:flex-row sm:items-center gap-x-space-sm">
+<span class="font-label-md text-label-md font-semibold">Diagnostic Warning:</span>
+<span class="font-body-sm text-body-sm opacity-90">Example simulated alert: Stream buffer frame size exceeded maximum throughput or file too large (max 10 MB). System auto-downsampled to 1024×1024.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="font-code-sm text-code-sm uppercase tracking-wider px-space-xs py-0.5 rounded bg-surface-container-lowest/60 text-on-error-container border border-error/20">ERR_LIMIT_EXCEEDED</span>
+<button class="p-1 rounded-lg hover:bg-black/20 text-on-error-container transition-colors" onclick="document.getElementById('error-alert').classList.add('hidden')" title="Dismiss">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Main Two-Column Workbench Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- ==================== LEFT COLUMN: Input & Synthesis Configuration (5 Cols) ==================== -->
+<section class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Studio Panel Container -->
+<div class="bg-surface-dim/95 border border-surface-border rounded-xl shadow-xl p-space-lg flex flex-col gap-space-lg backdrop-blur-sm">
+<!-- Mode Selector Segmented Tabs -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-indigo-400">videocam</span> Acquisition Stream
+              </span>
+<span class="font-code-sm text-code-sm text-status-connected flex items-center gap-1">
+<span class="h-1.5 w-1.5 rounded-full bg-status-connected animate-ping"></span> Live 30 FPS
+              </span>
+</div>
+<div class="grid grid-cols-2 p-1 rounded-xl bg-surface-container-lowest border border-surface-border mt-space-xs">
+<button class="py-space-xs px-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5" id="tab-upload" onclick="switchMode('upload')">
+<span class="material-symbols-outlined text-[18px]">cloud_upload</span> Upload photo
+              </button>
+<button class="py-space-xs px-space-sm rounded-lg font-label-md text-label-md bg-surface-container-highest text-indigo-400 border border-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.2)] flex items-center justify-center gap-1.5" id="tab-webcam" onclick="switchMode('webcam')">
+<span class="material-symbols-outlined text-[18px]">linked_camera</span> Use webcam
+              </button>
+</div>
+</div>
+<!-- Live Webcam Stream Viewport Card -->
+<div class="relative rounded-xl overflow-hidden bg-surface-container-lowest border border-surface-border flex flex-col aspect-[4/3] group shadow-inner" id="webcam-viewport">
+<!-- Simulated Camera Feed Background -->
+<div class="w-full h-full bg-cover bg-center absolute inset-0 opacity-80 mix-blend-luminosity" data-alt="High contrast atmospheric portrait photograph of an expressive person in a modern optical computer vision research laboratory, cinematic rim lighting in cyan and dark slate tones, direct eye contact, sharp focus." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCusiQQC4wFb5fiaJw31nJtqCvu-B3DpmSj6XvBmM6cwnzzEnt0C42fhVIpbOs5TiFbIBYAuXM1qp3qQCXwzqN67GDdladocY1BxTE__69QTwfGSTpDVFuiFoP-F8LjpNPh566wBNKIS9oh0gXeOUBYpLun_gvFOxjSQQSxgZxZR4ArkTg9C2FAr4zitMRzA1KBqhiDVT2JbwLp220gw5dL99R03J5oNxId6F79eY5Pg5XAKxyMS2zG')"></div>
+<!-- Dynamic Matrix Grid & Crosshair Overlay -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+<!-- Grid subtle crosshairs -->
+<div class="w-full h-full opacity-20 flex flex-col justify-between p-4">
+<div class="flex justify-between font-code-sm text-code-sm text-indigo-400"><span class="">+ (0,0)</span><span class="">+ (512,0)</span></div>
+<div class="flex justify-between font-code-sm text-code-sm text-indigo-400"><span class="">+ (0,512)</span><span class="">+ (512,512)</span></div>
+</div>
+<!-- Facial Landmark Mockup Bounding Box -->
+<div class="absolute w-52 h-64 rounded-xl border border-indigo-500/40 bg-indigo-500/5 flex flex-col justify-between p-2 shadow-[0_0_15px_rgba(99,102,241,0.15)] animate-pulse">
+<div class="flex items-center justify-between">
+<span class="font-code-sm text-code-sm text-indigo-300 bg-surface-container-lowest/90 px-1 rounded border border-indigo-500/30">Face: 99.4%</span>
+<div class="flex gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+</div>
+</div>
+<!-- Eye-line indicator -->
+<div class="w-full flex items-center justify-around opacity-75">
+<div class="w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center">
+<span class="w-1 h-1 bg-indigo-400 rounded-full"></span>
+</div>
+<div class="w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center">
+<span class="w-1 h-1 bg-indigo-400 rounded-full"></span>
+</div>
+</div>
+<!-- Pose and alignment tracker -->
+<div class="flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm bg-surface-container-lowest/80 border border-surface-border px-1.5 py-0.5 rounded">
+<span class="">Pitch: -1.2°</span>
+<span class="text-status-connected">Aligned</span>
+</div>
+</div>
+</div>
+<!-- Top Camera Status Bar -->
+<div class="relative z-10 p-space-sm flex items-center justify-between bg-gradient-to-b from-surface-container-lowest/90 to-transparent">
+<span class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-dim/90 border border-surface-border text-on-surface font-code-sm text-code-sm">
+<span class="h-2 w-2 rounded-full bg-status-critical animate-ping"></span> REC: Cam 01 (Virtual AV)
+              </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-dim/90 border border-surface-border px-2 py-0.5 rounded-full">1080p • ISO 200</span>
+</div>
+<!-- Bottom Camera Controls HUD -->
+<div class="relative z-10 mt-auto p-space-sm flex items-center justify-between bg-gradient-to-t from-surface-container-lowest/95 via-surface-container-lowest/60 to-transparent">
+<button class="p-2 rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface transition-colors border border-surface-border" title="Switch Input Camera" type="button">
+<span class="material-symbols-outlined text-[18px]">flip_camera_ios</span>
+</button>
+<!-- Shutter Trigger Button (Neon Indigo/Violet Accent) -->
+<button class="px-space-lg py-2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-600 hover:from-indigo-400 hover:to-violet-500 text-white font-label-md text-label-md flex items-center gap-2 shadow-[0_0_18px_rgba(99,102,241,0.4)] transition-all active:scale-95 group/btn" id="btn-snapshot">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover/btn:rotate-12">camera</span>
+<span class="font-semibold">Capture Snapshot</span>
+</button>
+<button class="p-2 rounded-full bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface transition-colors border border-surface-border" title="Lock Landmarks" type="button">
+<span class="material-symbols-outlined text-[18px]">crop_free</span>
+</button>
+</div>
+</div>
+<!-- File Upload Fallback Box (Always visible quick alternative) -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-surface-border hover:bg-surface-container-high/60 cursor-pointer transition-colors flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest border border-surface-border flex items-center justify-center text-indigo-400">
+<span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Drag source photo or browse</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">JPG, PNG, WEBP up to 10 MB</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-indigo-300 px-space-sm py-1 rounded bg-indigo-500/10 border border-indigo-500/20">Browse</span>
+</div>
+<!-- Style Selection Segmented Visual Radios -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-text-primary">Synthesis Style</label>
+<span class="font-code-sm text-code-sm text-on-surface-variant">3 Presets Loaded</span>
+</div>
+<div class="grid grid-cols-3 gap-space-sm">
+<!-- Style 1: Pencil Contour -->
+<div class="cursor-pointer rounded-xl p-space-sm bg-surface-container-low border border-surface-border hover:border-indigo-500/40 hover:bg-surface-container-high transition-all flex flex-col gap-2" id="style-card-1" onclick="selectStyle(1)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-container-lowest relative border border-surface-border">
+<div class="w-full h-full bg-cover bg-center" data-alt="Intricate graphite pencil line contour drawing of a human face, clean minimalist academic drawing style, delicate fine strokes on textured vellum paper, high key contrast." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDpc8gKXnyoVlWqHlS_WXT1NDGFtImUiuqahW81-_vKHdFp3glzObOOa2N0WMF1GHGTF8yBwgSZ8g0vBIqpzfb9TZasHZDrfHII4RPefyQZ-FdJsGAS0cSuO8HKAE0pgVG2soIxwYAYU-PIA2__H9L6XSFpHYiBTElulg186UPP4-ZkpALh_YdRn8i3w_oeWL2go4oR_tNrygUGN68c-FFTu5Y3HRVywvwqTxopcJFQHMpWO3DyDKrt')"></div>
+<span class="absolute top-1 left-1 bg-surface-dim/90 px-1 rounded font-code-sm text-code-sm text-on-surface border border-surface-border">01</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium truncate">Pencil Contour</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Fine graphite edge</span>
+</div>
+</div>
+<!-- Style 2: Charcoal Shaded (ACTIVE - Electric Indigo / Violet Glow) -->
+<div class="cursor-pointer rounded-xl p-space-sm bg-surface-container-highest border border-indigo-500/50 shadow-[0_0_16px_rgba(99,102,241,0.25)] transition-all flex flex-col gap-2 relative" id="style-card-2" onclick="selectStyle(2)">
+<div class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 text-white flex items-center justify-center shadow-lg style-badge">
+<span class="material-symbols-outlined text-[13px] check-icon">check</span>
+</div>
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-container-lowest relative border border-indigo-500/30">
+<div class="w-full h-full bg-cover bg-center" data-alt="Dramatic chiaroscuro charcoal sketch of a human face with deep rich shadows, smudged textural blending, intense black and deep grey charcoal dust particles on rough cotton rag paper." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsKr4_2LSsDnT0457UAH5t6MGC1vQvt52olEQIEBnV7OJeFDNVqPMjfJuwgOL8fvTYC8VFRfZDXwPDCzqfKeB5ihMj8cSi_PDfGi_1WIAapBvx--camkzYNbTfcg1hzjBUOwMK-pXZoPVkv2qbGs92C2glUN6yHQpBGWCAyur16uuRCVleGEVZHuP2VjEugNj0M44fJLjhoCoF1LZiAeRPsR3ketKPgFb2d-R5RYjZMDiZtRrEtZom')"></div>
+<span class="absolute top-1 left-1 bg-surface-dim/90 px-1 rounded font-code-sm text-code-sm text-indigo-400 font-semibold border border-indigo-500/30">02</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-indigo-300 font-semibold truncate">Charcoal Shaded</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Smudged deep tone</span>
+</div>
+</div>
+<!-- Style 3: Cross-Hatch Engraving -->
+<div class="cursor-pointer rounded-xl p-space-sm bg-surface-container-low border border-surface-border hover:border-indigo-500/40 hover:bg-surface-container-high transition-all flex flex-col gap-2" id="style-card-3" onclick="selectStyle(3)">
+<div class="w-full aspect-square rounded-lg overflow-hidden bg-surface-container-lowest relative border border-surface-border">
+<div class="w-full h-full bg-cover bg-center" data-alt="Classical antique copperplate etching engraving of a portrait with rigorous cross-hatching linework, dense intersecting pen strokes creating volume and anatomical form on cream vintage paper." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9290h1PS5m5tFT9aCB5HNmjVfiWpZaY93hwtpmPHhCkD5XC9yifvfZ2jXRynPO1PdS-wr1ALmZ5YNvArSFAM_32mUcB8GaXbKiVG9Rw0D3C0SSX5MsmniugO0c_vMdqWtnG23kT3TVh1uWAPcrF-NAc9hjr3Hiy0DN-Np3K5Y7SLZLEJE9m8DwKJKm5k4OHHysSxhahAItUjpBzIRnNNX_5WiC-rA1KASitRWkDzEC_WU-R-YSSJ5')"></div>
+<span class="absolute top-1 left-1 bg-surface-dim/90 px-1 rounded font-code-sm text-code-sm text-on-surface border border-surface-border">03</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium truncate">Cross-Hatch</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Copperplate hatch</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Parameter Controls (Stroke Density & Contrast Threshold) -->
+<div class="flex flex-col gap-space-md pt-space-xs">
+<!-- Stroke Density Slider (Electric Indigo Accent) -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-indigo-400">grain</span> Stroke Density
+                </span>
+<span class="font-code-sm text-code-sm text-indigo-400 font-semibold" id="density-val">80%</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-indigo-500" max="100" min="10" oninput="document.getElementById('density-val').innerText = this.value + '%'" type="range" value="80"/>
+<div class="flex justify-between font-code-sm text-code-sm text-on-surface-variant opacity-75">
+<span class="">Sparse (10%)</span>
+<span class="">Balanced</span>
+<span class="">Hyper-dense (100%)</span>
+</div>
+</div>
+<!-- Contrast Threshold Stepper/Toggle -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-violet-400">tonality</span> Contrast Threshold
+                </span>
+<span class="font-code-sm text-code-sm text-violet-300">Mid-tone Bias</span>
+</div>
+<div class="grid grid-cols-3 p-1 rounded-xl bg-surface-container-lowest border border-surface-border">
+<button class="py-1 px-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">Low (Soft)</button>
+<button class="py-1 px-space-xs rounded-lg font-label-md text-label-md bg-surface-container-high text-indigo-400 font-medium shadow-sm border border-indigo-500/20" type="button">Medium</button>
+<button class="py-1 px-space-xs rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">High (Harsh)</button>
+</div>
+</div>
+</div>
+<!-- Primary Generation CTA Button (Electric Indigo / Neon Violet Gradient) -->
+<button class="w-full py-3.5 px-space-lg rounded-xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 hover:from-indigo-400 hover:to-violet-500 text-white transition-all font-label-md text-label-md font-semibold flex items-center justify-center gap-2 active:scale-[0.99] shadow-[0_0_24px_rgba(99,102,241,0.35)]" id="btn-generate" onclick="triggerSynthesis()">
+<span class="material-symbols-outlined text-[20px]">auto_fix_high</span>
+<span class="">Generate Sketch</span>
+</button>
+</div>
+</section>
+<!-- ==================== RIGHT COLUMN: Results Viewport (7 Cols) ==================== -->
+<section class="lg:col-span-7 flex flex-col gap-space-md">
+<!-- Results Comparison Stage Card -->
+<div class="bg-surface-dim/95 border border-surface-border rounded-xl shadow-xl p-space-lg flex flex-col gap-space-lg backdrop-blur-sm">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-md text-headline-md text-text-primary">Synthesis Canvas</span>
+<span class="font-code-sm text-code-sm px-2 py-0.5 rounded-full bg-surface-container-highest border border-indigo-500/30 text-indigo-300">Dual View: 1024×1024</span>
+</div>
+<!-- Quick View Toggle Buttons -->
+<div class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded-xl border border-surface-border">
+<button class="px-space-sm py-1 rounded-lg bg-surface-container-high text-indigo-400 font-label-md text-label-md flex items-center gap-1 border border-indigo-500/20 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">side_navigation</span> Side-by-Side
+              </button>
+<button class="px-space-sm py-1 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">split_scene</span> Split Slider
+              </button>
+</div>
+</div>
+<!-- Two Identically Sized Image Panels -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Panel 1: Original Captured Portrait -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-outline">photo_camera</span> Original Photo
+                </span>
+<span class="font-code-sm text-code-sm text-outline">RGB 8-Bit</span>
+</div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-surface-container-lowest border border-surface-border group shadow-inner">
+<div class="w-full h-full bg-cover bg-center" data-alt="Crisp studio photograph portrait of a young adult looking directly at the camera, clean cinematic key lighting, neutral dark backdrop, sharp facial features, high dynamic range capture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiSsdaYAGU12xa04x9_TVuInA9EpZoy36WVUoOic6ebggqjX_2lUfjkPh_Ku-6eySzRXuZTerNB3AXm9pfBbUYKJ4IidGUmeQh9v6qXF2rokOPhrpFzfUS9kW43wtG6jU2BQQDCwxNMcix85jj0Domy5EM4fD8gLmPw7STtIUTDt5HsOKhliBdk9FPprKtDKeZX2FbUoWSwwDz-xEN4WxOQXsP7tslInbHJeyNHfz6B02rrqZU2-3W')"></div>
+<!-- Bounding Box Annotation Mockup -->
+<div class="absolute inset-8 rounded-lg pointer-events-none flex flex-col justify-between p-2 border border-indigo-400/40 bg-indigo-500/5">
+<div class="flex justify-between items-start">
+<span class="bg-surface-dim/90 text-indigo-300 font-code-sm text-code-sm px-1.5 py-0.5 rounded shadow border border-indigo-500/30">Region ROI: [98, 120, 414, 492]</span>
+<span class="material-symbols-outlined text-indigo-400 text-[18px]">center_focus_strong</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="bg-surface-dim/80 text-on-surface-variant font-code-sm text-code-sm px-1 rounded">Confidence: 0.98</span>
+</div>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-dim/90 border border-surface-border font-code-sm text-code-sm text-on-surface-variant">
+                  Source: Snapshot_0492.raw
+                </div>
+</div>
+</div>
+<!-- Panel 2: Generated Sketch Output -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1.5 font-medium text-indigo-300">
+<span class="material-symbols-outlined text-[16px] text-indigo-400">draw</span> Generated Sketch
+                </span>
+<span class="font-code-sm text-code-sm text-violet-300">Charcoal Shaded</span>
+</div>
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-surface-container-lowest border border-indigo-500/30 group shadow-inner">
+<div class="w-full h-full bg-cover bg-center" data-alt="Artistic high fidelity charcoal portrait sketch matching the same person, smudged textured graphite blending, delicate facial shading with deep velvety charcoal blacks, rough hand-drawn paper grain, masterclass fine art rendering." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBrkur1gXtAFqO1nQL6zvRDd0K66WPSsWTXl2vhyuu_Df4Eoyg3RV5VJ83s-8vmePhFlPh7c6pwq2VYiHE-jiHxEfuKKN0tK4K-qS6Hi5oX_RLftxuQ55oRQpbQGoOVFxO5eNJ1W9E-qv-pkZnHwqlRSfBenl6ef7se9-JqxaOvjxkFdROpd6tzsybPSANmUrD4B4lLlX9tcQD7HIk11bk_vfoarawrT_UUTUfJtLeYSewEBE5zCMdW')"></div>
+<!-- Loupe Hover Indicator Badge -->
+<div class="absolute top-2 right-2 bg-surface-dim/90 backdrop-blur-md border border-surface-border px-2 py-1 rounded-lg flex items-center gap-1 font-code-sm text-code-sm text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-indigo-400">zoom_in</span> 100% Native
+                </div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-dim/90 border border-indigo-500/30 font-code-sm text-code-sm text-indigo-300 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-status-connected">verified</span> Diffusion Synthesis Complete
+                </div>
+</div>
+</div>
+</div>
+<!-- Bottom Actions & Metrics Bar -->
+<div class="pt-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-md bg-surface-container-low border border-surface-border p-space-md rounded-xl">
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Inference Time Pill Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high border border-surface-border text-on-surface font-code-sm text-code-sm shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-status-connected">bolt</span>
+<span class="">Inference time: <strong class="text-status-connected">64 ms</strong></span>
+</div>
+<!-- Model Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high border border-surface-border text-on-surface-variant font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[15px] text-indigo-400">memory</span>
+<span class="">Model: <span class="text-on-surface">SketchGAN-Diffusion v2.1 • 512×512</span></span>
+</div>
+</div>
+<!-- Download Button Secondary Action -->
+<button class="w-full sm:w-auto px-space-md py-2 rounded-lg bg-surface-container-highest hover:bg-surface-bright text-on-surface transition-colors font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm border border-surface-border">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Download sketch</span>
+</button>
+</div>
+<!-- Telemetry Histogram / Residual Stroke Analysis Mini Visual (Electric Indigo / Neon Violet Palette) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-surface-border flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-violet-400">analytics</span> Stroke Spatial Frequency Distribution
+              </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Nyquist Limit: OK</span>
+</div>
+<!-- SVG Frequency Graph -->
+<div class="w-full h-12 flex items-end gap-1.5 pt-2">
+<div class="w-full h-[30%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[45%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[60%] bg-indigo-950/70 rounded-t border-t border-indigo-600/40"></div>
+<div class="w-full h-[85%] bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t shadow-[0_0_10px_rgba(99,102,241,0.4)]"></div>
+<div class="w-full h-[95%] bg-gradient-to-t from-indigo-500 to-violet-400 rounded-t shadow-[0_0_12px_rgba(168,85,247,0.4)]"></div>
+<div class="w-full h-[70%] bg-violet-500/80 rounded-t"></div>
+<div class="w-full h-[50%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[40%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[65%] bg-indigo-950/70 rounded-t border-t border-indigo-600/40"></div>
+<div class="w-full h-[80%] bg-gradient-to-t from-indigo-600 to-violet-500 rounded-t shadow-[0_0_10px_rgba(99,102,241,0.4)]"></div>
+<div class="w-full h-[55%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[35%] bg-surface-container-high rounded-t"></div>
+<div class="w-full h-[20%] bg-surface-container-high rounded-t"></div>
+</div>
+</div>
+</div>
+<!-- Optional Empty State Indicator Card Preview -->
+<div class="bg-surface-container-low border border-surface-border rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">history</span> Batch Queue Reference
+            </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">0 pending in buffer</span>
+</div>
+<!-- Clean Informational Empty State Container -->
+<div class="rounded-xl p-space-lg bg-surface-container-lowest border border-surface-border flex flex-col items-center justify-center text-center gap-space-sm py-8">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-indigo-400 border border-surface-border">
+<span class="material-symbols-outlined text-[24px]">brush</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<span class="font-label-md text-label-md text-text-primary font-medium">Ready for next synthesis session</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Capture a fresh frame from the live video feed or drop an external portrait to queue an additional comparison.</span>
+</div>
+<button class="mt-1 px-space-md py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-indigo-300 border border-indigo-500/20 font-label-md text-label-md transition-colors flex items-center gap-1.5" onclick="document.getElementById('btn-snapshot').click()">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span> Take New Snapshot
+            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Interactive Logic for Segmented Tabs, Style Switching & Snapshot feedback -->
+<script>
+    function switchMode(mode) {
+      const tabUpload = document.getElementById('tab-upload');
+      const tabWebcam = document.getElementById('tab-webcam');
+      const webcamViewport = document.getElementById('webcam-viewport');
+
+      if (mode === 'upload') {
+        tabUpload.className = "py-space-xs px-space-sm rounded-lg font-label-md text-label-md bg-surface-container-highest text-indigo-400 border border-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.2)] flex items-center justify-center gap-1.5";
+        tabWebcam.className = "py-space-xs px-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5 border border-transparent";
+        webcamViewport.classList.add('opacity-40');
+      } else {
+        tabWebcam.className = "py-space-xs px-space-sm rounded-lg font-label-md text-label-md bg-surface-container-highest text-indigo-400 border border-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.2)] flex items-center justify-center gap-1.5";
+        tabUpload.className = "py-space-xs px-space-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all flex items-center justify-center gap-1.5 border border-transparent";
+        webcamViewport.classList.remove('opacity-40');
+      }
+    }
+
+    function selectStyle(id) {
+      [1, 2, 3].forEach(i => {
+        const el = document.getElementById('style-card-' + i);
+        if (!el) return;
+        if (i === id) {
+          el.className = "cursor-pointer rounded-xl p-space-sm bg-surface-container-highest border border-indigo-500/50 shadow-[0_0_16px_rgba(99,102,241,0.25)] transition-all flex flex-col gap-2 relative";
+          if (!el.querySelector('.style-badge')) {
+            const badge = document.createElement('div');
+            badge.className = "absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 text-white flex items-center justify-center shadow-lg style-badge";
+            badge.innerHTML = '<span class="material-symbols-outlined text-[13px] check-icon">check</span>';
+            el.appendChild(badge);
+          }
+        } else {
+          el.className = "cursor-pointer rounded-xl p-space-sm bg-surface-container-low border border-surface-border hover:border-indigo-500/40 hover:bg-surface-container-high transition-all flex flex-col gap-2";
+          const badge = el.querySelector('.style-badge');
+          if (badge) badge.remove();
+        }
+      });
+    }
+
+    function triggerSynthesis() {
+      const btn = document.getElementById('btn-generate');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Synthesizing Latents (64ms)...</span>';
+      btn.classList.add('opacity-80', 'pointer-events-none');
+      
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.classList.remove('opacity-80', 'pointer-events-none');
+      }, 700);
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-border py-space-md"><div class="w-full px-gutter-desktop flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant"><div class="flex items-center gap-space-md"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-indigo-400">memory</span> Inference Cluster: US-WEST-2</span><span class="">|</span><span class="font-code-sm text-code-sm">Latency: 18ms</span><span class="">|</span><span class="font-code-sm text-code-sm">FP16 TensorRT Active</span></div><div class="flex items-center gap-space-md"><span class="">Computational Imaging Lab © 2025</span><a class="hover:text-on-surface transition-colors" data-path="documentation" href="#">API Specs</a><a class="hover:text-on-surface transition-colors" href="#">Benchmarks</a></div></div></footer>
+</body></html>

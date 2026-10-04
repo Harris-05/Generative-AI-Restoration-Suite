@@ -1,0 +1,4 @@
+{
+  "softmax_temperature": null,
+  "_note": "Set softmax_temperature to the tuned value from Assignment_Task3/best_params.json, then restart the backend."
+}

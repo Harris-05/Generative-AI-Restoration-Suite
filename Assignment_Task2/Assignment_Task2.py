@@ -32,6 +32,7 @@ Three parts, matching the assignment:
 """
 
 import argparse
+import csv
 import json
 import sys
 from pathlib import Path
@@ -46,6 +47,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "practise"))
 sys.path.insert(0, str(PROJECT_ROOT / "Assignment_Task1"))
 
 from utils import ReconstructionLoss, get_device, psnr, set_seed  # noqa: E402
+from tracking import Tracker  # noqa: E402
 from data_pipeline import (  # noqa: E402
     CORRUPTION_TYPES, IMG_SIZE, PetTrainDataset, PetManifestDataset,
     BalancedBatchSampler, list_clean_images, train_val_split,
@@ -61,6 +63,7 @@ HERE = Path(__file__).resolve().parent
 CHECKPOINT_DIR = HERE / "checkpoints"
 CLASSIFIER_BEST_PARAMS_PATH = HERE / "classifier_best_params.json"
 SPECIALIST_ARCH_PARAMS_PATH = HERE / "specialist_arch_params.json"
+LOG_DIR = HERE / "logs"
 
 # The four bottleneck options from the design discussion, and nothing else.
 # name -> (bottleneck_spatial, base_channels). Channels at the bottleneck are
@@ -215,7 +218,10 @@ def run_classifier_optuna_study(n_trials: int = 30, max_epochs_per_trial: int = 
     train_ids, val_ids = train_val_split(stems, seed=42)
     val_manifest = generate_validation_manifest(val_ids, seed=42)
 
-    study = optuna.create_study(direction="maximize", pruner=optuna.pruners.MedianPruner())
+    study = optuna.create_study(
+        study_name="task2_classifier", storage=f"sqlite:///{HERE / 'optuna_study.db'}",
+        load_if_exists=True, direction="maximize", pruner=optuna.pruners.MedianPruner(),
+    )
     objective = classifier_objective(IMAGES_DIR, train_ids, val_manifest, device,
                                       max_epochs_per_trial)
     study.optimize(objective, n_trials=n_trials)
@@ -252,18 +258,31 @@ def train_final_classifier(best_params: dict, epochs: int = 30):
     CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
     ckpt_path = CHECKPOINT_DIR / "classifier_final.pt"
 
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    tracker = Tracker("task2_classifier", "final_train", {**best_params, "epochs": epochs})
+    log_path = LOG_DIR / "classifier_train_log.csv"
     best_acc = 0.0
-    for epoch in range(epochs):
-        sampler.resample_epoch(epoch)
-        train_loss = train_classifier_one_epoch(model, train_ds, sampler, device,
-                                                  optimizer, ce_loss)
-        metrics = evaluate_classifier(model, val_loader, device)
-        print(f"epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
-              f"val_acc={metrics['accuracy']:.4f}  val_macro_f1={metrics['macro_f1']:.4f}")
-        if metrics["accuracy"] > best_acc:
-            best_acc = metrics["accuracy"]
-            torch.save(model.state_dict(), ckpt_path)
-            print(f"  -> saved new best checkpoint to {ckpt_path}")
+    with open(log_path, "w", newline="") as log_file:
+        writer = csv.writer(log_file)
+        writer.writerow(["epoch", "train_loss", "val_accuracy", "val_macro_f1"])
+        for epoch in range(epochs):
+            sampler.resample_epoch(epoch)
+            train_loss = train_classifier_one_epoch(model, train_ds, sampler, device,
+                                                      optimizer, ce_loss)
+            metrics = evaluate_classifier(model, val_loader, device)
+            writer.writerow([epoch + 1, train_loss, metrics["accuracy"], metrics["macro_f1"]])
+            log_file.flush()
+            tracker.log_metrics({"train_loss": train_loss, "val_accuracy": metrics["accuracy"],
+                                 "val_macro_f1": metrics["macro_f1"]}, step=epoch + 1)
+            print(f"epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
+                  f"val_acc={metrics['accuracy']:.4f}  val_macro_f1={metrics['macro_f1']:.4f}")
+            if metrics["accuracy"] > best_acc:
+                best_acc = metrics["accuracy"]
+                torch.save(model.state_dict(), ckpt_path)
+                print(f"  -> saved new best checkpoint to {ckpt_path}")
+    print(f"Training log written to {log_path}")
+    tracker.log_artifact(ckpt_path)
+    tracker.close()
 
     print("\nFinal validation metrics (best checkpoint):")
     print(json.dumps(metrics, indent=2))
@@ -367,7 +386,10 @@ def run_specialist_shared_optuna_study(n_trials: int = 20, max_epochs_per_trial:
     stems = list_clean_images(IMAGES_DIR)
     train_ids, val_ids = train_val_split(stems, seed=42)
 
-    study = optuna.create_study(direction="minimize", pruner=optuna.pruners.MedianPruner())
+    study = optuna.create_study(
+        study_name="task2_specialist_shared", storage=f"sqlite:///{HERE / 'optuna_study.db'}",
+        load_if_exists=True, direction="minimize", pruner=optuna.pruners.MedianPruner(),
+    )
     objective = specialist_shared_objective(IMAGES_DIR, train_ids, val_ids, device,
                                              max_epochs_per_trial)
     study.optimize(objective, n_trials=n_trials)
@@ -413,15 +435,28 @@ def train_specialist(corruption: str, arch_params: dict, epochs: int = 30):
     CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
     ckpt_path = CHECKPOINT_DIR / f"specialist_{corruption}.pt"
 
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    tracker = Tracker("task2_specialists", f"specialist_{corruption}", {**arch_params, "epochs": epochs})
+    log_path = LOG_DIR / f"specialist_{corruption}_train_log.csv"
     best_val = float("inf")
-    for epoch in range(epochs):
-        train_loss = ae_train_one_epoch(model, train_loader, optimizer, loss_fn, device)
-        val_loss, val_psnr = ae_evaluate(model, val_loader, loss_fn, device)
-        print(f"[{corruption}] epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
-              f"val_loss={val_loss:.4f}  val_psnr={val_psnr:.2f}dB")
-        if val_loss < best_val:
-            best_val = val_loss
-            torch.save(model.state_dict(), ckpt_path)
+    with open(log_path, "w", newline="") as log_file:
+        writer = csv.writer(log_file)
+        writer.writerow(["epoch", "train_loss", "val_loss", "val_psnr"])
+        for epoch in range(epochs):
+            train_loss = ae_train_one_epoch(model, train_loader, optimizer, loss_fn, device)
+            val_loss, val_psnr = ae_evaluate(model, val_loader, loss_fn, device)
+            writer.writerow([epoch + 1, train_loss, val_loss, val_psnr])
+            log_file.flush()
+            tracker.log_metrics({"train_loss": train_loss, "val_loss": val_loss,
+                                 "val_psnr": val_psnr}, step=epoch + 1)
+            print(f"[{corruption}] epoch {epoch+1}/{epochs}  train_loss={train_loss:.4f}  "
+                  f"val_loss={val_loss:.4f}  val_psnr={val_psnr:.2f}dB")
+            if val_loss < best_val:
+                best_val = val_loss
+                torch.save(model.state_dict(), ckpt_path)
+    print(f"Training log written to {log_path}")
+    tracker.log_artifact(ckpt_path)
+    tracker.close()
 
     return model
 
