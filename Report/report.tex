@@ -453,7 +453,33 @@ best $\lambda_{L1}$ (199.7) sits at the top of its range, so the true optimum ma
 configuration is trial 25, and it is used for both conditioning options.
 
 \subsection{Results}
-\todo{validation and test L1 and SSIM per style}
+The checkpoint with the lowest validation L1 (epoch 65, validation L1 0.0854, SSIM 0.584) was selected
+for testing. Table~\ref{tab:t4results} reports the official test split (1{,}046 pairs) per style. L1 is
+measured on images in $[0,1]$.
+
+\begin{table}[t]
+\centering
+\caption{Task 4 test results on the official FS2K test split, per sketch style.}
+\label{tab:t4results}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Style & Test pairs & L1 & SSIM \\
+\midrule
+Style 1 & 619 & 0.0726 & 0.611 \\
+Style 2 & 381 & 0.1419 & 0.474 \\
+Style 3 & 46 & 0.0621 & 0.673 \\
+\midrule
+All styles & 1{,}046 & 0.0974 & 0.564 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Style 2 is the hardest: its L1 is about twice that of Styles 1 and 3, and its SSIM is the lowest. Style 2
+also makes up 36\% of the test set, so it lowers the overall figures. Style 3 has only 46 test pairs, so its
+better scores are less reliable. The test L1 (0.097) is higher than the validation L1 (0.085), which is
+the expected generalization gap for a dataset of this size. We have not yet examined the Style 2 outputs
+to find the cause. One possibility is that its sketches differ more from the photographs, so the
+generator has to change more. The sample figure below shows the outputs at three epochs.
 \figbox{t4_samples.png}{\columnwidth}{photo, generated sketch, and true sketch for fixed validation photos at several epochs}
 \figbox{t4_loss_curves.png}{\columnwidth}{discriminator and generator losses (left) and L1 (right) during training}
 \figbox{t4_conditioning_comparison.png}{0.8\columnwidth}{validation L1 for option A (input) versus option B (bottleneck)}
