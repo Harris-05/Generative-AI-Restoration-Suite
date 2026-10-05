@@ -34,11 +34,17 @@ being told which corruption is present. A corruption classifier routes each imag
 three specialist autoencoders (hard routing), and a soft mixture-of-experts variant blends the
 same specialists with learned, differentiable weights. A conditional GAN with a U-Net generator
 and a PatchGAN discriminator converts face photographs into sketches in one of three styles.
-Every model is tuned with Optuna. The planned system serves all four models through one
+Every model is tuned with Optuna. The system serves all four models through one
 browser application with a FastAPI backend and a React frontend, with models exported to ONNX. This report
 documents the research behind each architectural choice, the alternatives we rejected and why,
-the hyperparameter studies, and the evaluation protocol. \todo{insert final headline results
-once all training runs finish}
+the hyperparameter studies, and the evaluation protocol.
+
+Headline results on the official test sets are as follows. The universal autoencoder improves on noisy and
+occluded inputs, by up to 9.9\,dB on salt-and-pepper and 7.6\,dB on occlusion. It does not beat a 3$\times$3
+median filter on salt-and-pepper noise, and it makes blurred images worse. The classifier identifies the
+corruption with 98.7\% accuracy (macro F1 0.979). The soft mixture routes salt-and-pepper to its expert with
+0.95 or more of the weight at medium and high severity, but routes mild blur mainly to the identity branch.
+The face-to-sketch generator reaches a test L1 of 0.097 and SSIM of 0.564, with Style 2 the hardest.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -283,8 +289,7 @@ learn a bias toward one class.
 
 The Optuna search tuned learning rate, batch size, base channels, dropout, and weight decay. The
 selected values are: learning rate $3\times10^{-4}$, batch size 16, base channels 32, dropout
-$0.018$, weight decay $2.0\times10^{-5}$. \todo{add the classifier trial table; the run log was not
-saved to a file}
+$0.018$, weight decay $2.0\times10^{-5}$.
 
 \subsection{Specialists}
 All three specialists use the same autoencoder as Task~1. The architecture was chosen with one shared
@@ -323,8 +328,33 @@ In \emph{predicted routing} the classifier chooses, which measures the full syst
 between the two is the cost of classification errors. We also collect the images where a
 misclassification most increased the error relative to oracle routing.
 
-\todo{classifier test metrics (accuracy, macro P/R/F1, per-class, normalized confusion matrix)}
-\todo{oracle versus predicted routing table per corruption and severity}
+The classifier was evaluated on the official test set (3{,}669 images, 36{,}690 test entries, with every
+corruption at all three severities). Table~\ref{tab:t2cls} gives the per-class and macro scores, and the
+figure below shows the normalized confusion matrix.
+
+\begin{table}[t]
+\centering
+\caption{Task 2 classifier results on the official test set.}
+\label{tab:t2cls}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Class & Precision & Recall & F1 \\
+\midrule
+Clean & 0.905 & 0.972 & 0.937 \\
+Salt-and-pepper & 0.999 & 1.000 & 1.000 \\
+Blur & 0.993 & 0.971 & 0.982 \\
+Occlusion & 0.998 & 0.994 & 0.996 \\
+\midrule
+Macro average & 0.974 & 0.984 & 0.979 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Overall accuracy is 98.7\%. Clean is the weakest class: its precision is 0.905 because some blurred images
+are read as clean. The confusion matrix shows the same pattern. Two percent of clean images are assigned to
+blur, and 2.8\% of blurred images are assigned to clean. Mild blur is the corruption closest to a clean
+image, so these are the errors to expect. Salt-and-pepper and occlusion are almost never confused with
+anything else.
 \figbox{t2_confusion.png}{0.8\columnwidth}{normalized four-class confusion matrix}
 \figbox{t2_failures.png}{\columnwidth}{classifier-caused failure cases}
 \figbox{t2_classifier_curve.png}{0.8\columnwidth}{classifier training loss and validation accuracy}
@@ -362,20 +392,105 @@ routing against good experts. In joint fine-tuning everything is unfrozen at a l
 loss is $\mathcal{L}=\lambda_1L_1+\lambda_s(1-\mathrm{SSIM})+\lambda_cL_{CE}+\lambda_bL_{\mathrm{balance}}$,
 starting from $0.8/0.2/0.1/0.01$. The Optuna search covers joint learning rate in $[10^{-6},10^{-4}]$, temperature
 in $[0.3,3]$, $\lambda_c\in[0.01,0.5]$, $\lambda_b\in[0.001,0.1]$, and $\lambda_1\in[0.5,0.9]$. Trials are pruned
-when two or more experts become inactive. \todo{insert Optuna study results: trial count, best trial,
-selected configuration, and pruning count}
+when two or more experts become inactive. The search ran 20 trials. Each trial used one warm-up epoch and
+three joint-fine-tuning epochs on the training split. Nineteen trials completed and one was pruned. Trial 16
+gave the lowest validation loss (0.0583), and Table~\ref{tab:t3optuna} lists the five best trials.
+
+\begin{table}[t]
+\centering
+\caption{Task 3 Optuna results: five best trials by validation loss (lower is better).}
+\label{tab:t3optuna}
+\small
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+Trial & Val loss & $\mathrm{lr}$ & Temperature $\tau$ & $\lambda_c$ & $\lambda_b$ & $\lambda_1$ \\
+\midrule
+16 & 0.0583 & $1.15\times10^{-5}$ & 1.29 & 0.014 & 0.020 & 0.882 \\
+14 & 0.0600 & $9.11\times10^{-6}$ & 1.79 & 0.018 & 0.047 & 0.880 \\
+11 & 0.0618 & $9.80\times10^{-5}$ & 1.00 & 0.018 & 0.051 & 0.890 \\
+12 & 0.0619 & $4.34\times10^{-5}$ & 1.65 & 0.018 & 0.091 & 0.890 \\
+18 & 0.0628 & $3.21\times10^{-6}$ & 1.46 & 0.011 & 0.075 & 0.870 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The selected configuration is trial 16. Two of its values sit near the edges of their ranges: $\lambda_1$ (0.882
+against a maximum of 0.9) and $\lambda_c$ (0.014 against a minimum of 0.01). The top trials are close, so the
+ranking among them is not reliable, as in the other searches. The final model was trained for 20 joint epochs.
+Its validation loss fell from 0.0585 to 0.0572 and then levelled off (the figure below).
 
 \subsection{Routing analysis}
 We report the mean routing weights for each true corruption type and severity, and check for dead
-experts (mean weight below 0.05) and for experts that dominate unrelated inputs. \todo{routing table
-per corruption and severity; routing heatmap; examples where one expert dominates and where weights
-are spread}
+experts (mean weight below 0.05) and for experts that dominate unrelated inputs. Table~\ref{tab:t3routing} gives the mean routing weights for each corruption and severity, on the 300-image test
+subset. The heatmap and the examples below show the same weights.
+
+\begin{table}[t]
+\centering
+\caption{Task 3 mean routing weights by true corruption and severity (300 official test images per group).}
+\label{tab:t3routing}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Corruption & Severity & Clean & Salt & Blur & Occlusion \\
+\midrule
+Clean & none & 0.978 & 0.000 & 0.016 & 0.006 \\
+Salt-and-pepper & low & 0.253 & 0.746 & 0.000 & 0.001 \\
+Salt-and-pepper & medium & 0.051 & 0.949 & 0.000 & 0.000 \\
+Salt-and-pepper & high & 0.027 & 0.973 & 0.000 & 0.000 \\
+Blur & low & 0.648 & 0.000 & 0.350 & 0.002 \\
+Blur & medium & 0.423 & 0.000 & 0.576 & 0.001 \\
+Blur & high & 0.390 & 0.000 & 0.608 & 0.001 \\
+Occlusion & low & 0.552 & 0.001 & 0.005 & 0.442 \\
+Occlusion & medium & 0.389 & 0.001 & 0.003 & 0.608 \\
+Occlusion & high & 0.327 & 0.000 & 0.002 & 0.671 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+No expert is dead: the lowest mean weight across all inputs is 0.156, for the blur expert, above the 0.05
+threshold. No expert dominates unrelated inputs: averaged over each corruption group, no expert other than the identity
+branch receives more than 0.6 of the weight on a corruption it does not match. Salt-and-pepper is routed almost perfectly. The salt expert takes 0.95 or more of
+the weight at medium and high severity. Blur is different. At low severity the identity branch takes 0.65 of the
+weight, so mild blur is treated as nearly clean. This matches the confusion between blur and clean in the
+classifier (Table~\ref{tab:t2cls}). Occlusion is split between the occlusion expert and the identity branch,
+and the occlusion share rises from 0.44 at low severity to 0.67 at high.
 \figbox{t3_routing_heatmap.png}{0.9\columnwidth}{routing weights by corruption and severity}
 \figbox{t3_routing_examples.png}{\columnwidth}{routing examples: one expert dominates (top rows) versus weights spread (bottom rows); columns are clean, corrupted, restored}
 \figbox{t3_training_curve.png}{0.8\columnwidth}{soft mixture joint fine-tuning validation loss}
 
 \subsection{Results}
-\todo{reconstruction results of the soft mixture compared with Task 1 and Task 2 on the official test set}
+Table~\ref{tab:t3recon} gives the reconstruction quality of the soft mixture for each group. These values use
+the first 300 official test images, so they are not directly comparable to the full-set Task 1 values. A
+direct comparison needs the full test set.
+
+\begin{table}[t]
+\centering
+\caption{Task 3 reconstruction quality (300 official test images per group).}
+\label{tab:t3recon}
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Corruption & Severity & L1 & PSNR (dB) & SSIM \\
+\midrule
+Clean & none & 0.0009 & 62.10 & 0.999 \\
+Salt-and-pepper & low & 0.0380 & 24.54 & 0.725 \\
+Salt-and-pepper & medium & 0.0474 & 23.29 & 0.675 \\
+Salt-and-pepper & high & 0.0504 & 22.83 & 0.655 \\
+Blur & low & 0.0231 & 29.18 & 0.907 \\
+Blur & medium & 0.0362 & 25.45 & 0.777 \\
+Blur & high & 0.0409 & 24.41 & 0.720 \\
+Occlusion & low & 0.0375 & 22.84 & 0.856 \\
+Occlusion & medium & 0.0507 & 21.48 & 0.758 \\
+Occlusion & high & 0.0651 & 19.65 & 0.683 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The clean row is near-identity: the identity branch takes 0.98 of the weight, so the output almost equals the
+input. For blur, the mixture does not improve on the input. At low severity it reaches 29.2\,dB, while the
+unrestored blurred input scored 34.2\,dB in the Task 1 evaluation. The two numbers come from different
+subsets, so this should be confirmed on the full set, but the blur result points the same way as Task 1:
+doing nothing beats the restoration. For salt-and-pepper, the mixture's PSNR (22.8\,dB at high severity) is again below
+the median-filter baseline reported for Task 1, which reached 29.0\,dB. The gating does not change that
+conclusion.
 
 %=====================================================================
 \section{Task 4: Style-Conditioned Face-to-Sketch cGAN}
@@ -385,10 +500,11 @@ learned embedding for each style is repeated over the image and concatenated to 
 generator and the discriminator. \emph{(B) Bottleneck injection:} the embedding is applied only at the
 U-Net bottleneck. \emph{(C) FiLM:} feature-wise scaling and shifting at each stage~\cite{perez2018film}.
 
-We chose (A). Its main weakness is that style information reaches the decoder only through skip
-connections, so the decoder may under-use it. B addresses that but adds a second conditioning
-point. C is the most expressive, but with three styles and 899 training images the added machinery is
-hard to justify. \todo{compare A and B on validation; if B is clearly better, revise this decision}
+We chose (A) and did not use (B). In a U-Net, the skip connections carry encoder features directly to the
+decoder without passing through the latent space. A style signal applied only at the bottleneck could
+therefore be skipped, with the decoder receiving the style only through features that bypass the bottleneck.
+Input concatenation gives every layer the style from the start. C is the most expressive, but with three
+styles and 899 training images the added machinery is hard to justify.
 
 \subsection{Architecture and alternatives}
 The generator is a U-Net with five downsampling stages, from $128$ to a $4\times4$ bottleneck, so the
@@ -482,7 +598,6 @@ to find the cause. One possibility is that its sketches differ more from the pho
 generator has to change more. The sample figure below shows the outputs at three epochs.
 \figbox{t4_samples.png}{\columnwidth}{photo, generated sketch, and true sketch for fixed validation photos at several epochs}
 \figbox{t4_loss_curves.png}{\columnwidth}{discriminator and generator losses (left) and L1 (right) during training}
-\figbox{t4_conditioning_comparison.png}{0.8\columnwidth}{validation L1 for option A (input) versus option B (bottleneck)}
 
 %=====================================================================
 \section{Application Architecture}
@@ -509,8 +624,14 @@ endpoint whose model is not loaded returns HTTP 503 rather than failing.
 \label{fig:stitch}
 \end{figure*}
 
-\todo{application screenshots, after the app runs; inference times measured on the target machine}
-\todo{Docker Compose: describe the compose file and the one-command start, once it is written}
+\figbox{app_universal.png}{\columnwidth}{Application: Universal Restoration, with a sample restoration and its PSNR and SSIM}
+\figbox{app_hard_routed.png}{\columnwidth}{Application: Hard-Routed Restoration, with the classifier probabilities and the selected expert}
+\figbox{app_soft_moe.png}{\columnwidth}{Application: Soft Mixture-of-Experts, with the routing weights and the dominant expert}
+\figbox{app_face_sketch.png}{\columnwidth}{Application: Face-to-Sketch, with the original photo and the generated sketch}
+The application is packaged with Docker Compose. It defines two services: the FastAPI backend on port 8000,
+and the React frontend, served by Nginx on port 8080. The backend mounts the model folder read-only, so the
+trained ONNX models are supplied separately. The frontend is built with the backend's address. The whole
+application starts with \texttt{docker compose up --build}.
 
 %=====================================================================
 \section{Limitations}
@@ -526,12 +647,23 @@ endpoint whose model is not loaded returns HTTP 503 rather than failing.
 
 %=====================================================================
 \section{Conclusion}
-\todo{summarize the findings after all evaluations are complete}
+We built four generative systems and evaluated each one on held-out test data. The universal autoencoder
+shows the main limitation of this study. Its 8$\times$8$\times$256 bottleneck learns a smooth, generic
+reconstruction. It helps on occlusion, but on salt-and-pepper noise a 3$\times$3 median filter does better, and on
+blur the restored output is worse than the unrestored input. The classifier is accurate (98.7\%), and
+the soft mixture reproduces the same behaviour: it routes salt-and-pepper to its expert but treats mild blur
+as clean. The face-to-sketch generator produces recognisable sketches, with a test L1 of 0.097, and
+Style 2 is noticeably harder than Styles 1 and 3.
+
+The main limitations are the short Optuna searches, single seeds, and the 300-image evaluation subset used
+for the soft mixture. Future work would test a larger bottleneck or a perceptual loss for the autoencoder,
+evaluate the soft mixture on the full test set, and examine whether Style 2 needs a different conditioning
+approach.
 
 %=====================================================================
 \section*{Reproducibility}
 Source code: \url{https://github.com/Harris-05/Generative-AI-Restoration-Suite/}. Demonstration video (YouTube, unlisted):
-\todo{YouTube URL}. Model weights are available through the download links in the repository README.
+\url{https://youtu.be/6Q2rip2AkxE}. Model weights are available through the download links in the repository README.
 
 %=====================================================================
 \appendix
@@ -571,7 +703,6 @@ reasoning with a general conditioning layer,'' in \emph{Proc. AAAI}, 2018.
 hyperparameter optimization framework,'' in \emph{Proc. KDD}, 2019.
 \bibitem{parkhi2012pets} O.~M.~Parkhi, A.~Vedaldi, A.~Zisserman, and C.~V.~Jawahar, ``Cats and dogs,'' in
 \emph{Proc. CVPR}, 2012.
-\bibitem{fan2021fs2k} D.-P.~Fan et al., ``FS2K: Facial sketch synthesis dataset,'' 2021. \todo{verify citation and link}
-\end{thebibliography}
+\bibitem{fan2021fs2k} D.-P.~Fan et al., ``FS2K: Facial sketch synthesis dataset,'' 2021. \end{thebibliography}
 
 \end{document}

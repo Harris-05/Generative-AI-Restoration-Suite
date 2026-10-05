@@ -1,0 +1,149 @@
+{
+  "oracle": {
+    "per_corruption_severity": {
+      "clean|none": {
+        "mean_l1": 0.0,
+        "mean_psnr": Infinity,
+        "n": 3669
+      },
+      "salt_pepper|low": {
+        "mean_l1": 0.048818456538531264,
+        "mean_psnr": 23.08426258004923,
+        "n": 3669
+      },
+      "salt_pepper|medium": {
+        "mean_l1": 0.04975296540856443,
+        "mean_psnr": 22.955696653529014,
+        "n": 3669
+      },
+      "salt_pepper|high": {
+        "mean_l1": 0.05185538701028745,
+        "mean_psnr": 22.666219475550474,
+        "n": 3669
+      },
+      "blur|low": {
+        "mean_l1": 0.04754609671520599,
+        "mean_psnr": 23.361807311214942,
+        "n": 3669
+      },
+      "blur|medium": {
+        "mean_l1": 0.04698699154467422,
+        "mean_psnr": 23.502099213538067,
+        "n": 3669
+      },
+      "blur|high": {
+        "mean_l1": 0.04734429213758807,
+        "mean_psnr": 23.468227791953495,
+        "n": 3669
+      },
+      "occlusion|low": {
+        "mean_l1": 0.057400200253519544,
+        "mean_psnr": 21.563687569422548,
+        "n": 3669
+      },
+      "occlusion|medium": {
+        "mean_l1": 0.06359458031195261,
+        "mean_psnr": 20.51152556545547,
+        "n": 3669
+      },
+      "occlusion|high": {
+        "mean_l1": 0.07349149504883083,
+        "mean_psnr": 19.161816419500663,
+        "n": 3669
+      }
+    }
+  },
+  "predicted": {
+    "per_corruption_severity": {
+      "clean|none": {
+        "mean_l1": 0.0013986270347776124,
+        "mean_psnr": Infinity,
+        "n": 3669
+      },
+      "salt_pepper|low": {
+        "mean_l1": 0.048766970573539924,
+        "mean_psnr": 23.08447703931206,
+        "n": 3669
+      },
+      "salt_pepper|medium": {
+        "mean_l1": 0.0497529654090721,
+        "mean_psnr": 22.955696653529014,
+        "n": 3669
+      },
+      "salt_pepper|high": {
+        "mean_l1": 0.05185538701434882,
+        "mean_psnr": 22.66621947542264,
+        "n": 3669
+      },
+      "blur|low": {
+        "mean_l1": 0.044152833241385525,
+        "mean_psnr": 24.204176457080333,
+        "n": 3669
+      },
+      "blur|medium": {
+        "mean_l1": 0.04698699153908984,
+        "mean_psnr": 23.502099215431723,
+        "n": 3669
+      },
+      "blur|high": {
+        "mean_l1": 0.0473442921370804,
+        "mean_psnr": 23.46822779235925,
+        "n": 3669
+      },
+      "occlusion|low": {
+        "mean_l1": 0.05688218066278966,
+        "mean_psnr": 21.58444916136721,
+        "n": 3669
+      },
+      "occlusion|medium": {
+        "mean_l1": 0.06358138111547655,
+        "mean_psnr": 20.51043328730058,
+        "n": 3669
+      },
+      "occlusion|high": {
+        "mean_l1": 0.07350858272190118,
+        "mean_psnr": 19.15809001432394,
+        "n": 3669
+      }
+    },
+    "classifier_accuracy_on_test": 0.9868083946579449
+  },
+  "failure_cases": [
+    {
+      "stem": "Bengal_40",
+      "true_corruption": "clean",
+      "severity": "none",
+      "predicted_class": "occlusion",
+      "oracle_l1": 0.0,
+      "predicted_l1": 0.1435079574584961,
+      "degradation": 0.1435079574584961
+    },
+    {
+      "stem": "Bengal_19",
+      "true_corruption": "clean",
+      "severity": "none",
+      "predicted_class": "occlusion",
+      "oracle_l1": 0.0,
+      "predicted_l1": 0.13471008837223053,
+      "degradation": 0.13471008837223053
+    },
+    {
+      "stem": "Bengal_41",
+      "true_corruption": "clean",
+      "severity": "none",
+      "predicted_class": "occlusion",
+      "oracle_l1": 0.0,
+      "predicted_l1": 0.13292130827903748,
+      "degradation": 0.13292130827903748
+    },
+    {
+      "stem": "beagle_97",
+      "true_corruption": "clean",
+      "severity": "none",
+      "predicted_class": "blur",
+      "oracle_l1": 0.0,
+      "predicted_l1": 0.04692445322871208,
+      "degradation": 0.04692445322871208
+    }
+  ]
+}

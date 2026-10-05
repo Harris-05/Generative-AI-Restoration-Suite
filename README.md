@@ -210,7 +210,7 @@ Run `pdflatex` twice so the references resolve. The figures are read from `Repor
 
 ## Demonstration video
 
-The unlisted YouTube link is added here before submission.
+Demonstration video (unlisted): https://youtu.be/6Q2rip2AkxE
 
 ---
 

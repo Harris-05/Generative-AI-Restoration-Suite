@@ -2,16 +2,7 @@
 oxford-iiit-pet/
 FS2K/
 
-# Trained weights and generated outputs (use Git LFS or a download link instead)
-*.pt
-*.onnx
-checkpoints/
-onnx/
-evaluation/
-Assignment_Task*/samples/
-logs/
-mlflow/
-*.db
+
 
 # Python
 __pycache__/
@@ -28,3 +19,6 @@ Roughreport.txt
 GenAI_Assignment#1.pdf
 *.log
 splits/
+
+
+/Demo/
